@@ -46,6 +46,8 @@
           <h2 style="margin-bottom:12px">Purity is a method, not a number</h2>
           <p>Reversed-phase HPLC pushes the sample through a packed column under pressure. Components that interact more strongly with the stationary phase come out later. A detector at the far end records absorbance, and each species draws a peak.</p>
           <p>Area percent is the area under the main peak divided by the total area under all peaks. Change the wavelength, the gradient, or the column and the same vial gives a different figure — which is why we publish the method and the detection wavelength next to the percentage. A purity number with no method attached cannot be compared to anything.</p>
+          <div class="chroma" id="hplcFigure" style="margin:26px 0 4px;max-width:560px"></div>
+          <p style="font-size:13px;color:var(--ink-mute);max-width:560px;margin-bottom:26px">A single dominant peak. Area percent is that peak's area divided by the area under every peak on the trace.</p>
           <p>There is a second trap. Area percent, net peptide content, and total weight purity are three different measurements that all get printed as a percentage. A vial can read 99% by HPLC and still be a substantial fraction salt and residual water by mass, because HPLC only sees what absorbs at that wavelength. Net peptide content is the figure that tells you how much peptide you actually bought.</p>
         </div>
 
@@ -85,6 +87,8 @@
 <script src="js/catalog.js"></script>
 <script src="js/site.js"></script>
 <script>
+drawChromatogram(document.getElementById('hplcFigure'), {purity:99.2, lot:'lot SV-BPC-0000'});
+
 document.getElementById('coaForm').addEventListener('submit', e=>{
   e.preventDefault();
   const lot = document.getElementById('coaLot').value.trim();

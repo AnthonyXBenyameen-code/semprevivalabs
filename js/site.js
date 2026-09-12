@@ -428,6 +428,65 @@ document.addEventListener('click', e=>{
   if(b) Cart.add(b.dataset.sku, +b.dataset.mg, 1);
 });
 
+/* ---------- peptide vs steroid structure figure ----------------------
+   Illustrates the featured note. Structural facts only — no claims.
+   Ring coordinates are the real gonane skeleton: three fused six-membered
+   rings plus a five-membered ring sharing ring C's edge.                */
+function drawStructureCompare(host){
+  const RINGS = [
+    'M51.3 45.5 L29.7 58.0 L8.0 45.5 L8.0 20.5 L29.7 8.0 L51.3 20.5 Z',
+    'M94.6 45.5 L73.0 58.0 L51.3 45.5 L51.3 20.5 L73.0 8.0 L94.6 20.5 Z',
+    'M137.9 45.5 L116.3 58.0 L94.6 45.5 L94.6 20.5 L116.3 8.0 L137.9 20.5 Z',
+    'M137.9 45.5 L137.9 20.5 L161.7 12.8 L176.4 33.0 L161.7 53.2 Z'
+  ];
+
+  // peptide: five residues on a zigzag backbone
+  const n = 5, x0 = 168, dx = 44, yHi = 96, yLo = 128;
+  let bonds = '', beads = '';
+  for(let i = 0; i < n; i++){
+    const x = x0 + i*dx, y = (i % 2 === 0) ? yHi : yLo;
+    if(i){
+      const px = x0 + (i-1)*dx, py = ((i-1) % 2 === 0) ? yHi : yLo;
+      bonds += `<line class="fig-bond" x1="${px}" y1="${py}" x2="${x}" y2="${y}"/>`;
+    }
+    beads += `<circle class="fig-res" cx="${x}" cy="${y}" r="9.5"/>`;
+  }
+
+  const rows = [
+    ['Receptor',   'On the cell surface',       'Inside the cell'],
+    ['Solubility', 'Water-soluble',             'Fat-soluble'],
+    ['Swallowed',  'Digested before absorbing', 'Survives digestion']
+  ];
+  const rowY = [252, 296, 340];
+  const rowSvg = rows.map(([k,a,b],i)=>`
+    <text class="fig-prop" x="140" y="${rowY[i]}" text-anchor="end">${k.toUpperCase()}</text>
+    <text class="fig-val"  x="168" y="${rowY[i]}">${a}</text>
+    <text class="fig-val"  x="372" y="${rowY[i]}">${b}</text>
+    ${i < rows.length-1 ? `<line class="fig-rule" x1="0" y1="${rowY[i]+18}" x2="560" y2="${rowY[i]+18}"/>` : ''}`
+  ).join('');
+
+  host.innerHTML = `
+    <div class="f-head"><span>Structure</span><span>Two different molecule classes</span></div>
+    <svg viewBox="0 0 560 386" role="img"
+         aria-label="A peptide is a chain of amino acid residues; a steroid is four fused carbon rings. Peptides act on receptors at the cell surface, dissolve in water, and are digested if swallowed. Steroids act on receptors inside the cell, dissolve in fat, and survive digestion.">
+      <text class="fig-col" x="168" y="34">PEPTIDE</text>
+      <text class="fig-col" x="372" y="34">STEROID</text>
+
+      ${bonds}${beads}
+      <text class="fig-cap" x="168" y="172">Chain of amino acids</text>
+
+      <g transform="translate(372,78) scale(1.05)">
+        ${RINGS.map(d=>`<path class="fig-ringfill" d="${d}"/>`).join('')}
+        ${RINGS.map(d=>`<path class="fig-ring" d="${d}"/>`).join('')}
+      </g>
+      <text class="fig-cap" x="372" y="172">Four fused carbon rings</text>
+
+      <line class="fig-div" x1="0" y1="208" x2="560" y2="208"/>
+      ${rowSvg}
+      <text class="fig-note" x="0" y="378">Nothing structural in common — which is why they behave differently.</text>
+    </svg>`;
+}
+
 /* ---------- chromatogram (hero) ---------- */
 function drawChromatogram(host, opts={}){
   const W=560, H=210, base=H-26;

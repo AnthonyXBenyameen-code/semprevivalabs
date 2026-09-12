@@ -21,6 +21,17 @@
     </div>
   </section>
 
+  <!-- explore -->
+  <section class="ctaband">
+    <div class="shell">
+      <p class="ctaband-lede">Sixteen compounds, each with its class, sequence and assay record.</p>
+      <div class="ctaband-acts">
+        <a class="shopcta" href="shop.html">Explore research compounds</a>
+        <a class="shopcta ghost" href="matcher.html">Find a compound</a>
+      </div>
+    </div>
+  </section>
+
   <!-- recent notes -->
   <section class="sec" style="border-bottom:0">
     <div class="shell">
@@ -56,7 +67,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const rest = NOTES.filter(n=>n !== feat);
 
   document.getElementById('featured').innerHTML = `
-    <div class="feature-media"><div class="chroma" id="heroChroma"></div></div>
+    <div class="figure" id="heroFigure"></div>
     <div>
       <div class="eyebrow"><span>${feat.cat}</span><span class="mins">${feat.mins} min read</span></div>
       <h2>${feat.title}</h2>
@@ -64,7 +75,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       <a class="readmore" href="notes.html#${slug(feat.title)}" style="margin-top:26px">Read &rarr;</a>
     </div>`;
 
-  drawChromatogram(document.getElementById('heroChroma'), {purity:99.2, lot:'lot SV-BPC-0000'});
+  drawStructureCompare(document.getElementById('heroFigure'));
 
   document.getElementById('noteGrid').innerHTML = rest.map(n=>`
     <a class="ncard" href="notes.html#${slug(n.title)}">

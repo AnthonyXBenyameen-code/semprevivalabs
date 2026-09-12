@@ -665,3 +665,34 @@ body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 
   cursor:pointer;transition:background .15s,color .15s;
 }
 .pcard-add:hover{background:transparent;color:var(--ink);}
+
+/* ---------- structure comparison figure ---------- */
+.figure{background:var(--glass);border:1px solid var(--rule);padding:20px 20px 16px;}
+.figure svg{width:100%;height:auto;display:block;}
+.figure .f-head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);
+}
+.fig-col{font-family:var(--mono);font-size:11px;letter-spacing:.1em;fill:var(--gold);}
+.fig-cap{font-family:var(--sans);font-size:12.5px;fill:var(--ink-mute);}
+.fig-prop{font-family:var(--mono);font-size:10px;letter-spacing:.07em;fill:var(--ink-mute);}
+.fig-val{font-family:var(--sans);font-size:13px;fill:var(--ink);}
+.fig-rule{stroke:var(--rule-fine);stroke-width:1;}
+.fig-div{stroke:var(--rule);stroke-width:1;}
+.fig-bond{stroke:var(--ink);stroke-width:1.6;fill:none;}
+.fig-res{fill:var(--paper-deep);stroke:var(--ink);stroke-width:1.4;}
+.fig-ring{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;}
+.fig-ringfill{fill:rgba(194,23,46,.07);stroke:none;}
+.fig-note{font-family:var(--sans);font-size:12px;fill:var(--ink-soft);}
+
+/* ---------- explore band between the featured note and Recent notes ---------- */
+.ctaband{
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:clamp(30px,4vw,46px) 0;text-align:center;
+}
+.ctaband-lede{
+  max-width:none;margin:0 0 20px;color:var(--ink-soft);font-size:15px;
+}
+.ctaband-acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.shopcta.ghost{background:transparent;color:var(--ink);}
+.shopcta.ghost:hover{background:var(--ink);color:var(--paper);}
