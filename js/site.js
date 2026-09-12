@@ -3,7 +3,6 @@
 const SVL = {
   phone:'(816) 641-7377',
   email:'support@semprevivalabs.com',
-  city:'Kansas City, MO',
   shipFlat: 9,
   freeShipOver: 200
 };
@@ -59,73 +58,72 @@ const Cart = {
 /* ---------- shell ---------- */
 function renderShell(active){
   const nav = [
-    ['./','Home'],
-    ['shop.html','Compounds'],
+    ['shop.html','Research compounds'],
     ['matcher.html','Find a compound'],
     ['testing.html','Testing'],
     ['notes.html','Notes'],
-    ['contact.html','Contact']
+    ['index.html#about','About'],
+    ['contact.html','Contact us now!']
   ];
 
   const header = `
   ${SVL_BUILD_MODE ? `<div class="buildbar">
      <span><b>Build preview.</b> Assay values, lot numbers and COA data are placeholders — replace with real lot records before launch.</span>
    </div>` : ''}
-  <header class="masthead">
-    <div class="shell masthead-in">
-      <a class="wordmark" href="./">
-        <span class="inf">&#8734;</span>
-        <span class="mark">SempreViva Labs</span>
-        <span class="sub">Kansas City, MO</span>
-      </a>
-      <nav class="nav" id="nav">
+  <div class="brandhead">
+    <a href="./" aria-label="SempreViva Labs — home">
+      <div class="brandlock">SempreViva Labs</div>
+      <div class="brandinf">&#8734;</div>
+    </a>
+  </div>
+  <nav class="navbar">
+    <div class="shell navbar-in">
+      <button class="navtoggle2" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="navbar-links" id="navLinks">
         ${nav.map(([h,l])=>`<a href="${h}"${h===active?' aria-current="page"':''}>${l}</a>`).join('')}
-      </nav>
-      <a class="cartbtn" href="cart.html">Cart <span class="n" data-cart-count>0</span></a>
-      <button class="navtoggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">&#9776;</button>
+        <a class="navcart" href="cart.html">Cart (<span data-cart-count>0</span>)</a>
+      </div>
     </div>
-  </header>`;
+  </nav>`;
 
   const footer = `
   <footer class="foot">
     <div class="shell">
       <div class="foot-grid">
         <div>
-          <div class="fmark"><span class="inf">&#8734;</span> SempreViva Labs</div>
-          <p class="fblurb">“Sempre viva” means always alive. A research supply company focused on the long game, and on the documentation that makes the long game possible.</p>
+          <div class="fmark">SempreViva Labs</div>
+          <p class="fblurb">Research peptides and supplements.</p>
         </div>
         <div>
-          <h4>Register</h4>
+          <h4>Sections</h4>
           <ul>
-            <li><a href="shop.html">All compounds</a></li>
+            <li><a href="shop.html">Research compound information</a></li>
             <li><a href="matcher.html">Find a compound</a></li>
-            <li><a href="shop.html#blends">Blends</a></li>
+            <li><a href="notes.html">Recent notes</a></li>
             <li><a href="cart.html">Cart</a></li>
           </ul>
         </div>
         <div>
-          <h4>Documentation</h4>
+          <h4>Company</h4>
           <ul>
-            <li><a href="testing.html">How we test</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
             <li><a href="testing.html#coa">COA lookup</a></li>
-            <li><a href="notes.html">Notes from the lab</a></li>
-            <li><a href="testing.html#handling">Storage &amp; handling</a></li>
+            <li><a href="testing.html">Testing standards</a></li>
           </ul>
         </div>
         <div>
-          <h4>Contact</h4>
+          <h4>Reach us</h4>
           <ul>
             <li><a href="tel:+18166417377">${SVL.phone}</a></li>
             <li><a href="mailto:${SVL.email}">${SVL.email}</a></li>
-            <li><a href="contact.html">Send a message</a></li>
-            <li>${SVL.city}</li>
           </ul>
         </div>
       </div>
       <div class="legal">
-        <p><strong>Research use only.</strong> All peptide products sold by SempreViva Labs are supplied for laboratory research use only. They are not drugs, dietary supplements, cosmetics, or food, and they are not for human or veterinary use, diagnostic use, or therapeutic use of any kind. Nothing on this site is medical advice, and no product is offered to diagnose, treat, cure, or prevent any disease. Purchasers are responsible for handling these materials in accordance with all applicable laws and institutional requirements.</p>
-        <p>These statements have not been evaluated by the Food and Drug Administration.</p>
-        <p>&copy; ${new Date().getFullYear()} SempreViva Labs &middot; ${SVL.city} &middot; <a href="testing.html">Testing standards</a></p>
+        <p>&copy; ${new Date().getFullYear()} SempreViva Labs. All rights reserved.</p>
+        <p><strong>Peptides:</strong> All peptide products are sold for laboratory research use only. They are not drugs, dietary supplements, or cosmetics, and are not intended or approved for human or veterinary use, consumption, diagnosis, treatment, cure, or prevention of any disease. Not for internal or external use in humans or animals.</p>
+        <p><strong>Supplements:</strong> These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.</p>
       </div>
     </div>
   </footer>`;
@@ -136,7 +134,7 @@ function renderShell(active){
 
   const tog = $('#navToggle');
   if(tog) tog.addEventListener('click', ()=>{
-    const n = $('#nav'), open = n.classList.toggle('open');
+    const n = $('#navLinks'), open = n.classList.toggle('open');
     tog.setAttribute('aria-expanded', String(open));
   });
   Cart.paint();

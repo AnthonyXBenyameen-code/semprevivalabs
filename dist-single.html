@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>SempreViva Labs</title>
-<style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');</style>
+<style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap');</style>
 <style>/* ============================================================
    SempreViva Labs
    Concept: the everlasting flower. Preserved, then reconstituted.
@@ -11,23 +11,23 @@
 
 
 :root{
-  --paper:#E9ECE5;
-  --paper-deep:#DDE2D9;
-  --glass:#FAFBF8;
-  --ink:#16211C;
-  --ink-soft:#3C4B44;
-  --ink-mute:#6E7C74;
-  --gold:#A8791B;
-  --gold-lift:#C79A34;
-  --sage:#6B8578;
-  --sage-pale:#B9C6BC;
-  --rust:#8C4A2F;
-  --rule:#C3CCC2;
-  --rule-fine:#D5DCD3;
+  --paper:#F5F1E8;
+  --paper-deep:#E8E1CE;
+  --glass:#FBF8F2;
+  --ink:#12304A;
+  --ink-soft:#3A5769;
+  --ink-mute:#72899A;
+  --gold:#C2172E;
+  --gold-lift:#A31324;
+  --sage:#5E7A8C;
+  --sage-pale:#B7C6D1;
+  --rust:#9B2233;
+  --rule:#DCD5C5;
+  --rule-fine:#E9E3D5;
 
-  --display:'Fraunces',Georgia,serif;
-  --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --display:'Playfair Display',Georgia,serif;
+  --sans:'Public Sans',system-ui,-apple-system,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
 
   --measure:68ch;
   --gut:clamp(20px,4vw,56px);
@@ -53,7 +53,6 @@ button{font:inherit;color:inherit;}
 
 h1,h2,h3,h4{
   font-family:var(--display);font-weight:400;
-  font-variation-settings:'SOFT' 0,'WONK' 0,'opsz' 88;
   line-height:1.08;letter-spacing:-.012em;margin:0;
   text-wrap:balance;
 }
@@ -88,7 +87,7 @@ p:last-child{margin-bottom:0;}
 .wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;margin-right:auto;}
 .wordmark .mark{
   font-family:var(--display);font-size:1.34rem;letter-spacing:-.022em;
-  font-variation-settings:'WONK' 1,'opsz' 40;
+  font-weight:500;
 }
 .wordmark .inf{font-family:var(--display);color:var(--gold);font-size:1.15rem;line-height:1;}
 .wordmark .sub{
@@ -130,7 +129,7 @@ p:last-child{margin-bottom:0;}
 section.hero{border-bottom:1px solid var(--rule);padding:clamp(48px,7vw,84px) 0 0;}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:end;}
 .hero h1{margin-bottom:22px;}
-.hero h1 em{font-style:italic;font-variation-settings:'WONK' 1,'opsz' 120;}
+.hero h1 em{font-style:italic;}
 .hero-lede{font-size:clamp(1.02rem,1.35vw,1.16rem);color:var(--ink-soft);max-width:46ch;}
 .hero-acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;}
 .hero-meta{
@@ -428,6 +427,105 @@ section.hero{border-bottom:1px solid var(--rule);padding:clamp(48px,7vw,84px) 0 
 }
 .gate-declined{text-align:center;}
 .gate-declined h2{margin-bottom:14px;}
+
+/* ============================================================
+   Brand shell + front page, matching the existing SempreViva site
+   ============================================================ */
+
+.brandhead{background:var(--paper-deep);text-align:center;padding:clamp(30px,5vw,58px) 20px clamp(24px,4vw,40px);}
+.brandhead a{text-decoration:none;display:inline-block;}
+.brandlock{
+  font-family:var(--display);font-weight:500;color:var(--ink);
+  font-size:clamp(2.5rem,7.2vw,5.4rem);line-height:1;letter-spacing:-.015em;margin:0;
+}
+.brandinf{font-family:var(--display);font-size:clamp(1.9rem,4.4vw,3.2rem);color:var(--ink);line-height:1;margin-top:.12em;}
+body[data-page]:not([data-page="./"]) .brandlock{font-size:clamp(1.9rem,4.2vw,3rem);}
+body[data-page]:not([data-page="./"]) .brandinf{font-size:clamp(1.3rem,2.6vw,1.9rem);}
+body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 20px clamp(16px,2.4vw,24px);}
+
+.navbar{
+  position:sticky;top:0;z-index:60;background:var(--paper);
+  border-bottom:1px solid var(--rule);
+}
+.navbar-in{
+  display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.4vw,34px);
+  flex-wrap:wrap;padding:15px var(--gut);
+}
+.navbar-links{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:clamp(13px,2.1vw,30px);
+}
+.navbar a{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.055em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;white-space:nowrap;
+  border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .16s,color .16s;
+}
+.navbar a:hover{border-bottom-color:var(--gold);}
+.navbar a[aria-current]{color:var(--ink);border-bottom-color:var(--ink);}
+.navbar a.navcart{color:var(--ink);}
+.navtoggle2{display:none;background:none;border:1px solid var(--rule);padding:7px 11px;cursor:pointer;
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+
+/* section label with a rule, as on his pages */
+.slabel{
+  display:flex;align-items:center;gap:18px;margin-bottom:clamp(24px,3.4vw,38px);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
+}
+.slabel::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);display:flex;gap:14px;align-items:baseline;margin-bottom:14px;
+}
+.eyebrow .mins{color:var(--ink-mute);}
+
+/* featured note */
+.feature{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(28px,4.6vw,64px);align-items:center;}
+.feature h2{font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.08;margin-bottom:16px;}
+.feature p{font-size:1.02rem;color:var(--ink-soft);}
+.feature-media{background:var(--glass);border:1px solid var(--rule);padding:20px 20px 14px;}
+
+/* recent notes grid, his card treatment */
+.notegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:clamp(18px,2.4vw,30px);}
+.ncard{
+  background:var(--glass);border:1px solid var(--rule-fine);padding:26px 24px 24px;
+  display:flex;flex-direction:column;text-decoration:none;transition:border-color .18s;
+}
+.ncard:hover{border-color:var(--ink-mute);}
+.ncard h3{font-size:1.3rem;line-height:1.18;margin-bottom:12px;}
+.ncard p{font-size:14.5px;color:var(--ink-soft);margin:0;}
+.readmore{
+  margin-top:22px;font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--gold);border-bottom:1px solid var(--gold);align-self:flex-start;padding-bottom:2px;
+}
+
+/* about block */
+.aboutwrap{max-width:720px;}
+.aboutwrap h2{font-size:clamp(1.9rem,4vw,3rem);margin-bottom:20px;}
+.aboutwrap p{font-size:1.05rem;color:var(--ink-soft);}
+
+/* the one black CTA, kept quiet and below the reading */
+.shopcta{
+  display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper);
+  text-decoration:none;padding:15px 30px;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  transition:background .18s,color .18s;
+}
+.shopcta:hover{background:transparent;color:var(--ink);}
+
+@media (max-width:820px){
+  .feature{grid-template-columns:1fr;}
+}
+@media (max-width:760px){
+  .navtoggle2{display:block;}
+  .navbar-in{justify-content:space-between;gap:12px;}
+  .navbar-links{
+    display:none;width:100%;flex-direction:column;align-items:flex-start;gap:0;
+  }
+  .navbar-links.open{display:flex;}
+  .navbar-links a{width:100%;padding:13px 0;border-bottom:1px solid var(--rule-fine);}
+  .navbar-links a:hover{border-bottom-color:var(--rule-fine);}
+}
 </style>
 <div id="siteHeader"></div><div id="app"></div><div id="siteFooter"></div>
 <script>
@@ -609,20 +707,33 @@ function assayFor(p){
 }
 
 const NOTES = [
-  { cat:'Fundamentals', title:'Peptides are not like steroids and here is why',
-    dek:'Both get called “compounds” and the resemblance ends there. One is a short chain of amino acids; the other is a four-ring lipid. That difference decides how each one is absorbed, how long it survives, and how it has to be stored.' },
-  { cat:'Documentation', title:'What a Certificate of Analysis actually tells you',
-    dek:'A COA has two jobs: confirm what the molecule is, and measure how much of the vial is that molecule. Everything else on the page is supporting detail. Here is how to read one without taking the header at face value.' },
-  { cat:'Methods', title:'HPLC, plainly explained',
-    dek:'A sample is pushed through a packed column under pressure. Things that stick to the packing come out late, things that do not come out early, and the detector draws a peak for each. The area under your peak, divided by the total area, is your purity number.' },
-  { cat:'Methods', title:'Mass spectrometry and identity confirmation',
-    dek:'HPLC tells you how much of the sample is one thing. It does not tell you what that thing is. Mass spec weighs the molecule and answers the second question — which is why a purity figure alone proves less than people assume.' },
-  { cat:'Standards', title:'Purity percentage is not one number',
-    dek:'Area percent, net peptide content, and total weight purity can all be printed as “99%” and mean three different things. A vial can be 99% pure by HPLC and still be mostly salt and water by mass.' },
-  { cat:'Standards', title:'Reading a blend ratio verification',
-    dek:'When one vial holds three compounds, purity alone is not enough — you also need to know they are present in the stated proportion. That requires a separate test, and most blend listings do not have one.' },
-  { cat:'Handling', title:'Lyophilization, and why it matters for storage',
-    dek:'Freeze-drying removes water by sublimation, skipping the liquid phase entirely. That is what lets a peptide sit stable at room temperature in transit — and it is why reconstitution starts a clock that the dry vial was not subject to.' }
+  { cat:'Fundamentals', mins:4, featured:true,
+    title:'Peptides are not like steroids and here is why',
+    dek:'The two get grouped together constantly, but they are separate classes of molecule with nothing structural in common. Steroids are built on a four-ring carbon skeleton derived from cholesterol; peptides are chains of amino acids. A look at what each class actually is, how they act on cells differently, and where the confusion comes from.' },
+
+  { cat:'Documentation', mins:2,
+    title:'What a Certificate of Analysis actually tells you',
+    dek:'A COA is only as useful as your ability to read it. We walk through each section of a typical certificate — identity confirmation, purity percentage, mass verification, and residual solvent screening — and explain what a well-formed result looks like versus one that leaves questions open.' },
+
+  { cat:'Methods', mins:2,
+    title:'HPLC, plainly explained',
+    dek:'High-performance liquid chromatography is the backbone of purity verification. Here\'s how the technique separates a sample into its components, and what the resulting chromatogram is really showing you.' },
+
+  { cat:'Standards', mins:2,
+    title:'Purity percentage is not one number',
+    dek:'A single purity figure can be calculated several different ways depending on the method used. We look at why two labs can report different values for the same vial, and which figure is worth anchoring to.' },
+
+  { cat:'Methods', mins:2,
+    title:'Mass spectrometry and identity confirmation',
+    dek:'Purity tells you how much of the sample is the intended compound. Mass spec tells you whether it\'s the right compound at all. A look at why both measurements belong on every certificate.' },
+
+  { cat:'Handling', mins:2,
+    title:'Lyophilization, and why it matters for storage',
+    dek:'Freeze-drying isn\'t just a packaging choice — it directly affects long-term stability. What the process does at a structural level, and how storage conditions carry that forward.' },
+
+  { cat:'Standards', mins:2,
+    title:'Reading a blend ratio verification',
+    dek:'When a product combines multiple compounds, verifying the ratio is a separate measurement from verifying each component. Here\'s what that testing looks like and how it\'s reported.' }
 ];
 
 /* SempreViva Labs — shared shell, cart, and helpers */
@@ -630,7 +741,6 @@ const NOTES = [
 const SVL = {
   phone:'(816) 641-7377',
   email:'support@semprevivalabs.com',
-  city:'Kansas City, MO',
   shipFlat: 9,
   freeShipOver: 200
 };
@@ -686,73 +796,72 @@ const Cart = {
 /* ---------- shell ---------- */
 function renderShell(active){
   const nav = [
-    ['#/','Home'],
-    ['#/shop','Compounds'],
+    ['#/shop','Research compounds'],
     ['#/matcher','Find a compound'],
     ['#/testing','Testing'],
     ['#/notes','Notes'],
-    ['#/contact','Contact']
+    ['#/index','About'],
+    ['#/contact','Contact us now!']
   ];
 
   const header = `
   ${SVL_BUILD_MODE ? `<div class="buildbar">
      <span><b>Build preview.</b> Assay values, lot numbers and COA data are placeholders — replace with real lot records before launch.</span>
    </div>` : ''}
-  <header class="masthead">
-    <div class="shell masthead-in">
-      <a class="wordmark" href="#/">
-        <span class="inf">&#8734;</span>
-        <span class="mark">SempreViva Labs</span>
-        <span class="sub">Kansas City, MO</span>
-      </a>
-      <nav class="nav" id="nav">
+  <div class="brandhead">
+    <a href="#/" aria-label="SempreViva Labs — home">
+      <div class="brandlock">SempreViva Labs</div>
+      <div class="brandinf">&#8734;</div>
+    </a>
+  </div>
+  <nav class="navbar">
+    <div class="shell navbar-in">
+      <button class="navtoggle2" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="navbar-links" id="navLinks">
         ${nav.map(([h,l])=>`<a href="${h}"${h===active?' aria-current="page"':''}>${l}</a>`).join('')}
-      </nav>
-      <a class="cartbtn" href="#/cart">Cart <span class="n" data-cart-count>0</span></a>
-      <button class="navtoggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">&#9776;</button>
+        <a class="navcart" href="#/cart">Cart (<span data-cart-count>0</span>)</a>
+      </div>
     </div>
-  </header>`;
+  </nav>`;
 
   const footer = `
   <footer class="foot">
     <div class="shell">
       <div class="foot-grid">
         <div>
-          <div class="fmark"><span class="inf">&#8734;</span> SempreViva Labs</div>
-          <p class="fblurb">“Sempre viva” means always alive. A research supply company focused on the long game, and on the documentation that makes the long game possible.</p>
+          <div class="fmark">SempreViva Labs</div>
+          <p class="fblurb">Research peptides and supplements.</p>
         </div>
         <div>
-          <h4>Register</h4>
+          <h4>Sections</h4>
           <ul>
-            <li><a href="#/shop">All compounds</a></li>
+            <li><a href="#/shop">Research compound information</a></li>
             <li><a href="#/matcher">Find a compound</a></li>
-            <li><a href="#/shop">Blends</a></li>
+            <li><a href="#/notes">Recent notes</a></li>
             <li><a href="#/cart">Cart</a></li>
           </ul>
         </div>
         <div>
-          <h4>Documentation</h4>
+          <h4>Company</h4>
           <ul>
-            <li><a href="#/testing">How we test</a></li>
+            <li><a href="#/index">About</a></li>
+            <li><a href="#/contact">Contact</a></li>
             <li><a href="#/testing">COA lookup</a></li>
-            <li><a href="#/notes">Notes from the lab</a></li>
-            <li><a href="#/testing">Storage &amp; handling</a></li>
+            <li><a href="#/testing">Testing standards</a></li>
           </ul>
         </div>
         <div>
-          <h4>Contact</h4>
+          <h4>Reach us</h4>
           <ul>
             <li><a href="tel:+18166417377">${SVL.phone}</a></li>
             <li><a href="mailto:${SVL.email}">${SVL.email}</a></li>
-            <li><a href="#/contact">Send a message</a></li>
-            <li>${SVL.city}</li>
           </ul>
         </div>
       </div>
       <div class="legal">
-        <p><strong>Research use only.</strong> All peptide products sold by SempreViva Labs are supplied for laboratory research use only. They are not drugs, dietary supplements, cosmetics, or food, and they are not for human or veterinary use, diagnostic use, or therapeutic use of any kind. Nothing on this site is medical advice, and no product is offered to diagnose, treat, cure, or prevent any disease. Purchasers are responsible for handling these materials in accordance with all applicable laws and institutional requirements.</p>
-        <p>These statements have not been evaluated by the Food and Drug Administration.</p>
-        <p>&copy; ${new Date().getFullYear()} SempreViva Labs &middot; ${SVL.city} &middot; <a href="#/testing">Testing standards</a></p>
+        <p>&copy; ${new Date().getFullYear()} SempreViva Labs. All rights reserved.</p>
+        <p><strong>Peptides:</strong> All peptide products are sold for laboratory research use only. They are not drugs, dietary supplements, or cosmetics, and are not intended or approved for human or veterinary use, consumption, diagnosis, treatment, cure, or prevention of any disease. Not for internal or external use in humans or animals.</p>
+        <p><strong>Supplements:</strong> These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.</p>
       </div>
     </div>
   </footer>`;
@@ -763,7 +872,7 @@ function renderShell(active){
 
   const tog = $('#navToggle');
   if(tog) tog.addEventListener('click', ()=>{
-    const n = $('#nav'), open = n.classList.toggle('open');
+    const n = $('#navLinks'), open = n.classList.toggle('open');
     tog.setAttribute('aria-expanded', String(open));
   });
   Cart.paint();
@@ -1323,29 +1432,38 @@ function initProduct(){
 }
 
 const VIEWS = {
-  index: '<main>\n\n  <section class="hero">\n    <div class="shell">\n      <div class="hero-grid">\n        <div>\n          <h1>Dried, and still alive.</h1>\n          <p class="hero-lede">Helichrysum holds its colour for years after it is cut. That is why it is called <em>sempreviva</em> — always alive. Lyophilisation does the same thing to a peptide: take the water out, and it keeps. What matters is what is actually in the vial when you bring it back.</p>\n          <div class="hero-acts">\n            <a class="btn" href="#/shop">Open the register</a>\n            <a class="btn btn-ghost" href="#/matcher">Find a compound</a>\n          </div>\n          <div class="hero-meta">\n            <div><span class="v num">16</span><span>compounds in register</span></div>\n            <div><span class="v num">3</span><span>assays per lot</span></div>\n            <div><span class="v">United States</span><span>all testing</span></div>\n          </div>\n        </div>\n\n        <div>\n          <div class="chroma" id="heroChroma"></div>\n          <p style="font-size:13px;color:var(--ink-mute);margin-top:14px;max-width:44ch;">\n            A purity figure is the area under one peak divided by the area under all of them. It is a ratio, not a guarantee — which is why it is never the only number we publish.\n          </p>\n        </div>\n      </div>\n      <div style="height:clamp(40px,6vw,72px)"></div>\n    </div>\n  </section>\n\n  <!-- ── testing ───────────────────────────────────────── -->\n  <section class="sec">\n    <div class="shell dual">\n      <div>\n        <div class="rail">\n          <dl>\n            <dt>Identity</dt><dd>Mass spec</dd>\n            <dt>Purity</dt><dd>RP-HPLC 214 nm</dd>\n            <dt>Net peptide</dt><dd>Nitrogen</dd>\n            <dt>Water</dt><dd>Karl Fischer</dd>\n            <dt>Blend ratio</dt><dd>RP-HPLC</dd>\n            <dt>Testing site</dt><dd>United States</dd>\n          </dl>\n        </div>\n      </div>\n      <div>\n        <div class="sec-head">\n          <h2>Three questions, every lot</h2>\n          <p>Most listings answer only the second one, and put it in the header in large type.</p>\n        </div>\n        <div class="stack" style="--sp:26px">\n          <div>\n            <h3 style="margin-bottom:8px">Is it the right molecule?</h3>\n            <p>Mass spectrometry weighs what is in the vial and compares it to the expected mass. Purity says nothing about identity — a vial can be 99% pure and 99% the wrong thing. This test is the one that gets skipped.</p>\n          </div>\n          <div>\n            <h3 style="margin-bottom:8px">How much of the vial is that molecule?</h3>\n            <p>Reversed-phase HPLC at 214 nm, reported as area percent. We publish the method and the wavelength alongside the number, because the same sample gives different figures under different conditions and an unlabelled percentage is not comparable to anything.</p>\n          </div>\n          <div>\n            <h3 style="margin-bottom:8px">If it is a blend, is the ratio real?</h3>\n            <p>A three-compound vial needs a fourth test. Fill weight tells you the total; it does not tell you the proportion. Every blend in the register carries a ratio verification, not an assumed split.</p>\n          </div>\n        </div>\n        <div style="margin-top:32px">\n          <a class="btn btn-ghost" href="#/testing">How the testing works</a>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ── register preview ──────────────────────────────── -->\n  <section class="sec">\n    <div class="shell">\n      <div class="sec-head">\n        <h2>The register</h2>\n        <p>Sixteen compounds, listed by class and mass rather than by marketing category. Each entry carries its sequence where one exists, its form, and its assay record.</p>\n      </div>\n      <div class="register" id="featured"></div>\n      <div style="margin-top:30px;display:flex;gap:12px;flex-wrap:wrap">\n        <a class="btn" href="#/shop">All 16 compounds</a>\n        <a class="btn btn-ghost" href="#/matcher">Not sure which one</a>\n      </div>\n    </div>\n  </section>\n\n  <!-- ── matcher ───────────────────────────────────────── -->\n  <section class="sec">\n    <div class="shell dual">\n      <div>\n        <div class="sec-head">\n          <h2>Six questions, then a shortlist</h2>\n          <p>Tell it the research area, the study window, and how the compound needs to be handled. It scores all sixteen entries against what you said and returns the three that fit, with the reasoning shown — including why the others scored lower.</p>\n        </div>\n        <a class="btn btn-gold" href="#/matcher">Start</a>\n      </div>\n      <div>\n        <div class="notice">\n          <p style="margin:0"><strong>It asks about research design, not about you.</strong> The questions cover study area, duration, handling, and prior familiarity with the class. It will not ask about symptoms or health status, and it does not produce medical recommendations — it narrows a catalogue of sixteen down to three.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ── notes ─────────────────────────────────────────── -->\n  <section class="sec" style="border-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h2>Notes from the lab</h2>\n        <p>Writing about peptide analysis: how the testing is done, what the resulting documentation means, and why the details are worth caring about.</p>\n      </div>\n      <div class="notes" id="noteGrid"></div>\n      <div style="margin-top:30px"><a class="btn btn-ghost" href="#/notes">All notes</a></div>\n    </div>\n  </section>\n\n</main>',
+  index: '<main>\n\n  <!-- featured note -->\n  <section class="sec" style="border-bottom:0;padding-bottom:clamp(34px,4.5vw,56px)">\n    <div class="shell">\n      <article class="feature" id="featured"></article>\n    </div>\n  </section>\n\n  <!-- recent notes -->\n  <section class="sec" style="border-bottom:0">\n    <div class="shell">\n      <div class="slabel">Recent notes</div>\n      <div class="notegrid" id="noteGrid"></div>\n    </div>\n  </section>\n\n  <!-- about -->\n  <section class="sec" id="about" style="border-bottom:0;background:var(--paper-deep)">\n    <div class="shell">\n      <div class="slabel">About</div>\n      <div class="aboutwrap">\n        <h2>Why &ldquo;SempreViva&rdquo;</h2>\n        <p>&ldquo;Sempre viva&rdquo; means &ldquo;always alive.&rdquo; This is a research supply company focused on the long game. This space is where we write about new innovations in peptide technology and the analytical side of that work: how testing is done, what the resulting documentation means, and why the details are worth caring about.</p>\n        <p>All products are tested for purity, mass measurements, and blend ratios here in the United States.</p>\n        <p style="margin-top:34px">\n          <a class="shopcta" href="#/shop">Shop research compounds</a>\n        </p>\n      </div>\n    </div>\n  </section>\n\n</main>',
   shop: '<main>\n  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">Compound register</h1>\n        <p>Listed by structural class rather than by use. Sequence is shown where a defined one exists; blends are marked, and each carries a ratio verification in addition to the purity assay.</p>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec" style="padding-top:clamp(28px,3vw,40px)">\n    <div class="shell">\n      <div class="filters" id="filters"></div>\n      <div class="register" id="register"></div>\n      <p id="empty" class="hide" style="padding:40px 0;color:var(--ink-mute)">Nothing in the register matches that filter.</p>\n    </div>\n  </section>\n\n  <section class="sec" id="blends" style="border-bottom:0">\n    <div class="shell dual">\n      <div>\n        <div class="sec-head">\n          <h2>On blends</h2>\n          <p>A blend is not a discount bundle. It is several compounds co-lyophilised in one vial, which means the proportion has to be measured rather than assumed.</p>\n        </div>\n        <a class="btn btn-ghost" href="#/testing">How ratio verification works</a>\n      </div>\n      <div>\n        <div class="register" id="blendList"></div>\n      </div>\n    </div>\n  </section>\n</main>',
   product: '<main class="shell" id="pd"></main>',
   matcher: '<main class="shell">\n  <div class="matcher">\n    <div class="mprog" id="prog" aria-hidden="true"></div>\n    <div id="stage"></div>\n  </div>\n</main>',
   testing: '<main>\n\n  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">What we test, and what the numbers mean</h1>\n        <p>All products are tested for purity, mass measurements, and blend ratios here in the United States. This page explains what each of those tests actually establishes — and what it does not.</p>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec">\n    <div class="shell dual">\n      <div class="rail">\n        <dl>\n          <dt>Identity</dt><dd>ESI-MS</dd>\n          <dt>Purity</dt><dd>RP-HPLC, 214 nm</dd>\n          <dt>Net peptide</dt><dd>Nitrogen determination</dd>\n          <dt>Water</dt><dd>Karl Fischer</dd>\n          <dt>Blend ratio</dt><dd>RP-HPLC, per component</dd>\n          <dt>Appearance</dt><dd>Visual</dd>\n          <dt>Location</dt><dd>United States</dd>\n        </dl>\n      </div>\n      <div class="stack" style="--sp:36px">\n        <div id="identity">\n          <h2 style="margin-bottom:12px">Identity comes first</h2>\n          <p>Mass spectrometry ionises the sample and measures mass-to-charge ratio. The observed mass either matches the expected mass for the sequence or it does not. This is the test that answers "is this the molecule on the label."</p>\n          <p>It gets skipped more often than it should, because purity is the number people look for. But purity is a ratio of one peak to all peaks — it describes how dominant the main species is, not what that species is. A sample can be 99% one compound and that compound can be the wrong one.</p>\n        </div>\n\n        <div id="purity">\n          <h2 style="margin-bottom:12px">Purity is a method, not a number</h2>\n          <p>Reversed-phase HPLC pushes the sample through a packed column under pressure. Components that interact more strongly with the stationary phase come out later. A detector at the far end records absorbance, and each species draws a peak.</p>\n          <p>Area percent is the area under the main peak divided by the total area under all peaks. Change the wavelength, the gradient, or the column and the same vial gives a different figure — which is why we publish the method and the detection wavelength next to the percentage. A purity number with no method attached cannot be compared to anything.</p>\n          <p>There is a second trap. Area percent, net peptide content, and total weight purity are three different measurements that all get printed as a percentage. A vial can read 99% by HPLC and still be a substantial fraction salt and residual water by mass, because HPLC only sees what absorbs at that wavelength. Net peptide content is the figure that tells you how much peptide you actually bought.</p>\n        </div>\n\n        <div id="ratio">\n          <h2 style="margin-bottom:12px">Blends need a fourth test</h2>\n          <p>When three compounds share a vial, purity tells you how clean the contents are and identity tells you the components are the right ones. Neither tells you the proportion.</p>\n          <p>Fill weight is not proof of ratio. Two powders can be weighed correctly and still separate, settle, or partition unevenly during lyophilisation. Ratio verification runs the reconstituted blend through HPLC and integrates each component peak separately, so the stated split is measured rather than assumed.</p>\n          <p>Every blend in the register — Wolverine, Deadpool, Glow, and Klow — carries one.</p>\n        </div>\n\n        <div id="handling">\n          <h2 style="margin-bottom:12px">Lyophilisation, and the clock it stops</h2>\n          <p>Freeze-drying removes water by sublimation: the sample is frozen, then held under vacuum so ice passes straight to vapour without melting. Skipping the liquid phase is the point — liquid water drives hydrolysis, and hydrolysis is what breaks peptide bonds.</p>\n          <p>The result is a dry cake that is stable at room temperature in transit and keeps far longer frozen. Adding diluent restarts the clock the dry state had stopped. After that: 2–8&nbsp;°C, out of the light, and as few freeze–thaw cycles as the work allows.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec" id="coa">\n    <div class="shell">\n      <div class="sec-head">\n        <h2>COA lookup</h2>\n        <p>Every vial carries a lot number on the label. Enter it to pull the certificate of analysis for that specific lot — not a representative document for the product line.</p>\n      </div>\n      <form id="coaForm" style="display:flex;gap:12px;flex-wrap:wrap;max-width:560px">\n        <input id="coaLot" type="text" placeholder="Lot number, e.g. SV-BPC-0000" aria-label="Lot number"\n               style="flex:1;min-width:240px;font-family:var(--mono);font-size:14px;padding:13px 14px;border:1px solid var(--rule);background:var(--glass);border-radius:1px">\n        <button class="btn" type="submit">Look up</button>\n      </form>\n      <div id="coaOut" style="margin-top:22px;max-width:640px"></div>\n    </div>\n  </section>\n\n</main>',
   notes: '<main>\n  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">Notes from the lab</h1>\n        <p>New work in peptide technology, and the analytical side of it: how testing is done, what the resulting documentation means, and why the details are worth caring about.</p>\n      </div>\n    </div>\n  </section>\n  <section class="sec" style="padding-top:clamp(24px,3vw,36px);border-bottom:0">\n    <div class="shell">\n      <div id="noteList"></div>\n    </div>\n  </section>\n</main>',
-  cart: '<main>\n  <section class="sec" style="border-bottom:0">\n    <div class="shell">\n      <div class="sec-head"><h1 style="font-size:clamp(2.1rem,4.2vw,3.2rem)">Cart</h1></div>\n\n      <div id="empty" class="hide">\n        <p style="color:var(--ink-mute)">Nothing in the cart yet.</p>\n        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">\n          <a class="btn" href="#/shop">Open the register</a>\n          <a class="btn btn-ghost" href="#/matcher">Find a compound</a>\n        </div>\n      </div>\n\n      <div id="full" class="hide">\n        <div id="lines"></div>\n        <div class="totals">\n          <div class="line"><span>Subtotal</span><span class="num" id="tSub">—</span></div>\n          <div class="line"><span>Shipping</span><span class="num" id="tShip">—</span></div>\n          <div class="line grand"><span>Total</span><span class="num" id="tTotal">—</span></div>\n          <p id="freeHint" style="font-size:12.5px;color:var(--sage);margin-top:10px;text-align:right"></p>\n        </div>\n\n        <div class="dual" style="margin-top:52px;padding-top:40px;border-top:1px solid var(--rule)">\n          <div>\n            <h2 style="font-size:1.6rem;margin-bottom:14px">Shipping</h2>\n            <p style="font-size:14px;color:var(--ink-mute)">Ships from Kansas City, MO. Flat $9, free over $200.</p>\n            <div class="notice" style="margin-top:22px">\n              <p style="margin:0"><strong>Research use only.</strong> By placing this order you confirm you are ordering these materials for laboratory research use, that you are not ordering them for human or veterinary use, and that you are responsible for handling them under applicable law.</p>\n            </div>\n          </div>\n\n          <form id="coForm" style="background:var(--glass);border:1px solid var(--rule);padding:28px">\n            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_name">Full name</label><input id="f_name" required style="font-family:var(--sans)"></div>\n            <div class="calc-row" style="grid-template-columns:1fr 1fr;gap:14px">\n              <span><label for="f_email" style="display:block;margin-bottom:6px">Email</label><input id="f_email" type="email" required style="font-family:var(--sans)"></span>\n              <span><label for="f_phone" style="display:block;margin-bottom:6px">Phone</label><input id="f_phone" type="tel" required style="font-family:var(--sans)"></span>\n            </div>\n            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_line1">Address</label><input id="f_line1" required style="font-family:var(--sans)"></div>\n            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_line2">Apt, suite (optional)</label><input id="f_line2" style="font-family:var(--sans)"></div>\n            <div class="calc-row" style="grid-template-columns:2fr 1fr 1fr;gap:14px">\n              <span><label for="f_city" style="display:block;margin-bottom:6px">City</label><input id="f_city" required style="font-family:var(--sans)"></span>\n              <span><label for="f_state" style="display:block;margin-bottom:6px">State</label><input id="f_state" required maxlength="2" style="text-transform:uppercase"></span>\n              <span><label for="f_zip" style="display:block;margin-bottom:6px">ZIP</label><input id="f_zip" required inputmode="numeric"></span>\n            </div>\n            <label style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);margin:18px 0 20px;cursor:pointer">\n              <input id="f_ack" type="checkbox" required style="width:auto;margin-top:3px">\n              <span>I am ordering these materials for laboratory research use only, and not for human or veterinary use.</span>\n            </label>\n            <button class="btn btn-gold" type="submit" style="width:100%" id="payBtn">Place order &middot; <span class="num" id="btnTotal"></span></button>\n            <div id="coOut" style="margin-top:18px"></div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </section>\n</main>',
-  contact: '<main>\n  <section class="sec" style="border-bottom:0">\n    <div class="shell dual">\n      <div>\n        <div class="sec-head">\n          <h1 style="font-size:clamp(2.3rem,4.6vw,3.4rem)">Get in touch</h1>\n          <p>Questions about a lot, a certificate, an order, or a compound that is not in the register yet.</p>\n        </div>\n        <div class="rail" style="max-width:420px">\n          <dl>\n            <dt>Phone</dt><dd><a href="tel:+18166417377" style="text-decoration:none">(816) 641-7377</a></dd>\n            <dt>Text</dt><dd><a href="sms:+18166417377" style="text-decoration:none">(816) 641-7377</a></dd>\n            <dt>Email</dt><dd style="font-size:11.5px"><a href="mailto:support@semprevivalabs.com" style="text-decoration:none">support@semprevivalabs.com</a></dd>\n            <dt>Location</dt><dd>Kansas City, MO</dd>\n          </dl>\n        </div>\n      </div>\n      <div>\n        <form id="msg" style="background:var(--glass);border:1px solid var(--rule);padding:28px">\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cName">Name</label>\n            <input id="cName" required style="font-family:var(--sans)">\n          </div>\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cEmail">Email</label>\n            <input id="cEmail" type="email" required style="font-family:var(--sans)">\n          </div>\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cLot">Lot number (optional)</label>\n            <input id="cLot" placeholder="SV-BPC-0000">\n          </div>\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cBody">Message</label>\n            <textarea id="cBody" rows="6" required\n              style="font-family:var(--sans);font-size:14px;padding:11px;border:1px solid var(--rule);background:var(--paper);border-radius:1px;width:100%;resize:vertical"></textarea>\n          </div>\n          <button class="btn btn-gold" type="submit" style="width:100%;margin-top:6px">Send message</button>\n          <p style="font-size:12px;color:var(--ink-mute);margin-top:14px">Opens your mail client. Wire this to a form endpoint to send directly from the page.</p>\n        </form>\n      </div>\n    </div>\n  </section>\n</main>',
+  cart: '<main>\n  <section class="sec" style="border-bottom:0">\n    <div class="shell">\n      <div class="sec-head"><h1 style="font-size:clamp(2.1rem,4.2vw,3.2rem)">Cart</h1></div>\n\n      <div id="empty" class="hide">\n        <p style="color:var(--ink-mute)">Nothing in the cart yet.</p>\n        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">\n          <a class="btn" href="#/shop">Open the register</a>\n          <a class="btn btn-ghost" href="#/matcher">Find a compound</a>\n        </div>\n      </div>\n\n      <div id="full" class="hide">\n        <div id="lines"></div>\n        <div class="totals">\n          <div class="line"><span>Subtotal</span><span class="num" id="tSub">—</span></div>\n          <div class="line"><span>Shipping</span><span class="num" id="tShip">—</span></div>\n          <div class="line grand"><span>Total</span><span class="num" id="tTotal">—</span></div>\n          <p id="freeHint" style="font-size:12.5px;color:var(--sage);margin-top:10px;text-align:right"></p>\n        </div>\n\n        <div class="dual" style="margin-top:52px;padding-top:40px;border-top:1px solid var(--rule)">\n          <div>\n            <h2 style="font-size:1.6rem;margin-bottom:14px">Shipping</h2>\n            <p style="font-size:14px;color:var(--ink-mute)">Flat $9 shipping, free over $200.</p>\n            <div class="notice" style="margin-top:22px">\n              <p style="margin:0"><strong>Research use only.</strong> By placing this order you confirm you are ordering these materials for laboratory research use, that you are not ordering them for human or veterinary use, and that you are responsible for handling them under applicable law.</p>\n            </div>\n          </div>\n\n          <form id="coForm" style="background:var(--glass);border:1px solid var(--rule);padding:28px">\n            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_name">Full name</label><input id="f_name" required style="font-family:var(--sans)"></div>\n            <div class="calc-row" style="grid-template-columns:1fr 1fr;gap:14px">\n              <span><label for="f_email" style="display:block;margin-bottom:6px">Email</label><input id="f_email" type="email" required style="font-family:var(--sans)"></span>\n              <span><label for="f_phone" style="display:block;margin-bottom:6px">Phone</label><input id="f_phone" type="tel" required style="font-family:var(--sans)"></span>\n            </div>\n            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_line1">Address</label><input id="f_line1" required style="font-family:var(--sans)"></div>\n            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_line2">Apt, suite (optional)</label><input id="f_line2" style="font-family:var(--sans)"></div>\n            <div class="calc-row" style="grid-template-columns:2fr 1fr 1fr;gap:14px">\n              <span><label for="f_city" style="display:block;margin-bottom:6px">City</label><input id="f_city" required style="font-family:var(--sans)"></span>\n              <span><label for="f_state" style="display:block;margin-bottom:6px">State</label><input id="f_state" required maxlength="2" style="text-transform:uppercase"></span>\n              <span><label for="f_zip" style="display:block;margin-bottom:6px">ZIP</label><input id="f_zip" required inputmode="numeric"></span>\n            </div>\n            <label style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);margin:18px 0 20px;cursor:pointer">\n              <input id="f_ack" type="checkbox" required style="width:auto;margin-top:3px">\n              <span>I am ordering these materials for laboratory research use only, and not for human or veterinary use.</span>\n            </label>\n            <button class="btn btn-gold" type="submit" style="width:100%" id="payBtn">Place order &middot; <span class="num" id="btnTotal"></span></button>\n            <div id="coOut" style="margin-top:18px"></div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </section>\n</main>',
+  contact: '<main>\n  <section class="sec" style="border-bottom:0">\n    <div class="shell dual">\n      <div>\n        <div class="sec-head">\n          <h1 style="font-size:clamp(2.3rem,4.6vw,3.4rem)">Get in touch</h1>\n          <p>Questions about a lot, a certificate, an order, or a compound that is not in the register yet.</p>\n        </div>\n        <div class="rail" style="max-width:420px">\n          <dl>\n            <dt>Phone</dt><dd><a href="tel:+18166417377" style="text-decoration:none">(816) 641-7377</a></dd>\n            <dt>Text</dt><dd><a href="sms:+18166417377" style="text-decoration:none">(816) 641-7377</a></dd>\n            <dt>Email</dt><dd style="font-size:11.5px"><a href="mailto:support@semprevivalabs.com" style="text-decoration:none">support@semprevivalabs.com</a></dd>\n          </dl>\n        </div>\n      </div>\n      <div>\n        <form id="msg" style="background:var(--glass);border:1px solid var(--rule);padding:28px">\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cName">Name</label>\n            <input id="cName" required style="font-family:var(--sans)">\n          </div>\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cEmail">Email</label>\n            <input id="cEmail" type="email" required style="font-family:var(--sans)">\n          </div>\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cLot">Lot number (optional)</label>\n            <input id="cLot" placeholder="SV-BPC-0000">\n          </div>\n          <div class="calc-row" style="grid-template-columns:1fr">\n            <label for="cBody">Message</label>\n            <textarea id="cBody" rows="6" required\n              style="font-family:var(--sans);font-size:14px;padding:11px;border:1px solid var(--rule);background:var(--paper);border-radius:1px;width:100%;resize:vertical"></textarea>\n          </div>\n          <button class="btn btn-gold" type="submit" style="width:100%;margin-top:6px">Send message</button>\n          <p style="font-size:12px;color:var(--ink-mute);margin-top:14px">Opens your mail client. Wire this to a form endpoint to send directly from the page.</p>\n        </form>\n      </div>\n    </div>\n  </section>\n</main>',
 };
 const INITS = {
   index: function(){
 
+  const feat = NOTES.find(n=>n.featured) || NOTES[0];
+  const rest = NOTES.filter(n=>n !== feat);
+
+  document.getElementById('featured').innerHTML = `
+    <div class="feature-media"><div class="chroma" id="heroChroma"></div></div>
+    <div>
+      <div class="eyebrow"><span>${feat.cat}</span><span class="mins">${feat.mins} min read</span></div>
+      <h2>${feat.title}</h2>
+      <p>${feat.dek}</p>
+      <a class="readmore" href="notes.html#${slug(feat.title)}" style="margin-top:26px">Read &rarr;</a>
+    </div>`;
+
   drawChromatogram(document.getElementById('heroChroma'), {purity:99.2, lot:'lot SV-BPC-0000'});
 
-  const feat = ['BPC','RETA','GHK','MOTS','WOLV','TESA'].map(bySku);
-  document.getElementById('featured').innerHTML = feat.map(specRow).join('');
-
-  document.getElementById('noteGrid').innerHTML = NOTES.slice(0,3).map(n=>`
-    <a class="note" href="notes.html#${slug(n.title)}">
-      <span class="cat">${n.cat}</span>
+  document.getElementById('noteGrid').innerHTML = rest.map(n=>`
+    <a class="ncard" href="notes.html#${slug(n.title)}">
+      <div class="eyebrow"><span>${n.cat}</span><span class="mins">${n.mins} min</span></div>
       <h3>${n.title}</h3>
       <p>${n.dek}</p>
-      <span class="more">Read &rarr;</span>
+      <span class="readmore">Read &rarr;</span>
     </a>`).join('');
 
   },

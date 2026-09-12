@@ -3,26 +3,26 @@
    Concept: the everlasting flower. Preserved, then reconstituted.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap');
 
 :root{
-  --paper:#E9ECE5;
-  --paper-deep:#DDE2D9;
-  --glass:#FAFBF8;
-  --ink:#16211C;
-  --ink-soft:#3C4B44;
-  --ink-mute:#6E7C74;
-  --gold:#A8791B;
-  --gold-lift:#C79A34;
-  --sage:#6B8578;
-  --sage-pale:#B9C6BC;
-  --rust:#8C4A2F;
-  --rule:#C3CCC2;
-  --rule-fine:#D5DCD3;
+  --paper:#F5F1E8;
+  --paper-deep:#E8E1CE;
+  --glass:#FBF8F2;
+  --ink:#12304A;
+  --ink-soft:#3A5769;
+  --ink-mute:#72899A;
+  --gold:#C2172E;
+  --gold-lift:#A31324;
+  --sage:#5E7A8C;
+  --sage-pale:#B7C6D1;
+  --rust:#9B2233;
+  --rule:#DCD5C5;
+  --rule-fine:#E9E3D5;
 
-  --display:'Fraunces',Georgia,serif;
-  --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --display:'Playfair Display',Georgia,serif;
+  --sans:'Public Sans',system-ui,-apple-system,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
 
   --measure:68ch;
   --gut:clamp(20px,4vw,56px);
@@ -48,7 +48,6 @@ button{font:inherit;color:inherit;}
 
 h1,h2,h3,h4{
   font-family:var(--display);font-weight:400;
-  font-variation-settings:'SOFT' 0,'WONK' 0,'opsz' 88;
   line-height:1.08;letter-spacing:-.012em;margin:0;
   text-wrap:balance;
 }
@@ -83,7 +82,7 @@ p:last-child{margin-bottom:0;}
 .wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;margin-right:auto;}
 .wordmark .mark{
   font-family:var(--display);font-size:1.34rem;letter-spacing:-.022em;
-  font-variation-settings:'WONK' 1,'opsz' 40;
+  font-weight:500;
 }
 .wordmark .inf{font-family:var(--display);color:var(--gold);font-size:1.15rem;line-height:1;}
 .wordmark .sub{
@@ -125,7 +124,7 @@ p:last-child{margin-bottom:0;}
 section.hero{border-bottom:1px solid var(--rule);padding:clamp(48px,7vw,84px) 0 0;}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:end;}
 .hero h1{margin-bottom:22px;}
-.hero h1 em{font-style:italic;font-variation-settings:'WONK' 1,'opsz' 120;}
+.hero h1 em{font-style:italic;}
 .hero-lede{font-size:clamp(1.02rem,1.35vw,1.16rem);color:var(--ink-soft);max-width:46ch;}
 .hero-acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;}
 .hero-meta{
@@ -423,3 +422,102 @@ section.hero{border-bottom:1px solid var(--rule);padding:clamp(48px,7vw,84px) 0 
 }
 .gate-declined{text-align:center;}
 .gate-declined h2{margin-bottom:14px;}
+
+/* ============================================================
+   Brand shell + front page, matching the existing SempreViva site
+   ============================================================ */
+
+.brandhead{background:var(--paper-deep);text-align:center;padding:clamp(30px,5vw,58px) 20px clamp(24px,4vw,40px);}
+.brandhead a{text-decoration:none;display:inline-block;}
+.brandlock{
+  font-family:var(--display);font-weight:500;color:var(--ink);
+  font-size:clamp(2.5rem,7.2vw,5.4rem);line-height:1;letter-spacing:-.015em;margin:0;
+}
+.brandinf{font-family:var(--display);font-size:clamp(1.9rem,4.4vw,3.2rem);color:var(--ink);line-height:1;margin-top:.12em;}
+body[data-page]:not([data-page="./"]) .brandlock{font-size:clamp(1.9rem,4.2vw,3rem);}
+body[data-page]:not([data-page="./"]) .brandinf{font-size:clamp(1.3rem,2.6vw,1.9rem);}
+body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 20px clamp(16px,2.4vw,24px);}
+
+.navbar{
+  position:sticky;top:0;z-index:60;background:var(--paper);
+  border-bottom:1px solid var(--rule);
+}
+.navbar-in{
+  display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.4vw,34px);
+  flex-wrap:wrap;padding:15px var(--gut);
+}
+.navbar-links{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:clamp(13px,2.1vw,30px);
+}
+.navbar a{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.055em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;white-space:nowrap;
+  border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .16s,color .16s;
+}
+.navbar a:hover{border-bottom-color:var(--gold);}
+.navbar a[aria-current]{color:var(--ink);border-bottom-color:var(--ink);}
+.navbar a.navcart{color:var(--ink);}
+.navtoggle2{display:none;background:none;border:1px solid var(--rule);padding:7px 11px;cursor:pointer;
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+
+/* section label with a rule, as on his pages */
+.slabel{
+  display:flex;align-items:center;gap:18px;margin-bottom:clamp(24px,3.4vw,38px);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
+}
+.slabel::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);display:flex;gap:14px;align-items:baseline;margin-bottom:14px;
+}
+.eyebrow .mins{color:var(--ink-mute);}
+
+/* featured note */
+.feature{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(28px,4.6vw,64px);align-items:center;}
+.feature h2{font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.08;margin-bottom:16px;}
+.feature p{font-size:1.02rem;color:var(--ink-soft);}
+.feature-media{background:var(--glass);border:1px solid var(--rule);padding:20px 20px 14px;}
+
+/* recent notes grid, his card treatment */
+.notegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:clamp(18px,2.4vw,30px);}
+.ncard{
+  background:var(--glass);border:1px solid var(--rule-fine);padding:26px 24px 24px;
+  display:flex;flex-direction:column;text-decoration:none;transition:border-color .18s;
+}
+.ncard:hover{border-color:var(--ink-mute);}
+.ncard h3{font-size:1.3rem;line-height:1.18;margin-bottom:12px;}
+.ncard p{font-size:14.5px;color:var(--ink-soft);margin:0;}
+.readmore{
+  margin-top:22px;font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--gold);border-bottom:1px solid var(--gold);align-self:flex-start;padding-bottom:2px;
+}
+
+/* about block */
+.aboutwrap{max-width:720px;}
+.aboutwrap h2{font-size:clamp(1.9rem,4vw,3rem);margin-bottom:20px;}
+.aboutwrap p{font-size:1.05rem;color:var(--ink-soft);}
+
+/* the one black CTA, kept quiet and below the reading */
+.shopcta{
+  display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper);
+  text-decoration:none;padding:15px 30px;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  transition:background .18s,color .18s;
+}
+.shopcta:hover{background:transparent;color:var(--ink);}
+
+@media (max-width:820px){
+  .feature{grid-template-columns:1fr;}
+}
+@media (max-width:760px){
+  .navtoggle2{display:block;}
+  .navbar-in{justify-content:space-between;gap:12px;}
+  .navbar-links{
+    display:none;width:100%;flex-direction:column;align-items:flex-start;gap:0;
+  }
+  .navbar-links.open{display:flex;}
+  .navbar-links a{width:100%;padding:13px 0;border-bottom:1px solid var(--rule-fine);}
+  .navbar-links a:hover{border-bottom-color:var(--rule-fine);}
+}

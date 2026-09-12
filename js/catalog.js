@@ -176,18 +176,31 @@ function assayFor(p){
 }
 
 const NOTES = [
-  { cat:'Fundamentals', title:'Peptides are not like steroids and here is why',
-    dek:'Both get called “compounds” and the resemblance ends there. One is a short chain of amino acids; the other is a four-ring lipid. That difference decides how each one is absorbed, how long it survives, and how it has to be stored.' },
-  { cat:'Documentation', title:'What a Certificate of Analysis actually tells you',
-    dek:'A COA has two jobs: confirm what the molecule is, and measure how much of the vial is that molecule. Everything else on the page is supporting detail. Here is how to read one without taking the header at face value.' },
-  { cat:'Methods', title:'HPLC, plainly explained',
-    dek:'A sample is pushed through a packed column under pressure. Things that stick to the packing come out late, things that do not come out early, and the detector draws a peak for each. The area under your peak, divided by the total area, is your purity number.' },
-  { cat:'Methods', title:'Mass spectrometry and identity confirmation',
-    dek:'HPLC tells you how much of the sample is one thing. It does not tell you what that thing is. Mass spec weighs the molecule and answers the second question — which is why a purity figure alone proves less than people assume.' },
-  { cat:'Standards', title:'Purity percentage is not one number',
-    dek:'Area percent, net peptide content, and total weight purity can all be printed as “99%” and mean three different things. A vial can be 99% pure by HPLC and still be mostly salt and water by mass.' },
-  { cat:'Standards', title:'Reading a blend ratio verification',
-    dek:'When one vial holds three compounds, purity alone is not enough — you also need to know they are present in the stated proportion. That requires a separate test, and most blend listings do not have one.' },
-  { cat:'Handling', title:'Lyophilization, and why it matters for storage',
-    dek:'Freeze-drying removes water by sublimation, skipping the liquid phase entirely. That is what lets a peptide sit stable at room temperature in transit — and it is why reconstitution starts a clock that the dry vial was not subject to.' }
+  { cat:'Fundamentals', mins:4, featured:true,
+    title:'Peptides are not like steroids and here is why',
+    dek:'The two get grouped together constantly, but they are separate classes of molecule with nothing structural in common. Steroids are built on a four-ring carbon skeleton derived from cholesterol; peptides are chains of amino acids. A look at what each class actually is, how they act on cells differently, and where the confusion comes from.' },
+
+  { cat:'Documentation', mins:2,
+    title:'What a Certificate of Analysis actually tells you',
+    dek:'A COA is only as useful as your ability to read it. We walk through each section of a typical certificate — identity confirmation, purity percentage, mass verification, and residual solvent screening — and explain what a well-formed result looks like versus one that leaves questions open.' },
+
+  { cat:'Methods', mins:2,
+    title:'HPLC, plainly explained',
+    dek:'High-performance liquid chromatography is the backbone of purity verification. Here\'s how the technique separates a sample into its components, and what the resulting chromatogram is really showing you.' },
+
+  { cat:'Standards', mins:2,
+    title:'Purity percentage is not one number',
+    dek:'A single purity figure can be calculated several different ways depending on the method used. We look at why two labs can report different values for the same vial, and which figure is worth anchoring to.' },
+
+  { cat:'Methods', mins:2,
+    title:'Mass spectrometry and identity confirmation',
+    dek:'Purity tells you how much of the sample is the intended compound. Mass spec tells you whether it\'s the right compound at all. A look at why both measurements belong on every certificate.' },
+
+  { cat:'Handling', mins:2,
+    title:'Lyophilization, and why it matters for storage',
+    dek:'Freeze-drying isn\'t just a packaging choice — it directly affects long-term stability. What the process does at a structural level, and how storage conditions carry that forward.' },
+
+  { cat:'Standards', mins:2,
+    title:'Reading a blend ratio verification',
+    dek:'When a product combines multiple compounds, verifying the ratio is a separate measurement from verifying each component. Here\'s what that testing looks like and how it\'s reported.' }
 ];

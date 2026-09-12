@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>SempreViva Labs — research peptides, tested and documented</title>
-<meta name="description" content="Research peptides and supplements from Kansas City, MO. Every lot tested for identity, purity, and blend ratio in the United States.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2316211C'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23A8791B' font-family='Georgia,serif'%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<title>SempreViva Labs — research peptides and supplements</title>
+<meta name="description" content="Notes from the lab: new innovations in peptide technology and the analytical side of that work. All products tested for purity, mass measurements, and blend ratios in the United States.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F5F1E8'/%3E%3Ctext x='16' y='24' font-size='21' text-anchor='middle' fill='%2312304A' font-family='Georgia,serif'%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body data-page="./">
@@ -14,117 +14,33 @@
 
 <main>
 
-  <section class="hero">
+  <!-- featured note -->
+  <section class="sec" style="border-bottom:0;padding-bottom:clamp(34px,4.5vw,56px)">
     <div class="shell">
-      <div class="hero-grid">
-        <div>
-          <h1>Dried, and still alive.</h1>
-          <p class="hero-lede">Helichrysum holds its colour for years after it is cut. That is why it is called <em>sempreviva</em> — always alive. Lyophilisation does the same thing to a peptide: take the water out, and it keeps. What matters is what is actually in the vial when you bring it back.</p>
-          <div class="hero-acts">
-            <a class="btn" href="shop.html">Open the register</a>
-            <a class="btn btn-ghost" href="matcher.html">Find a compound</a>
-          </div>
-          <div class="hero-meta">
-            <div><span class="v num">16</span><span>compounds in register</span></div>
-            <div><span class="v num">3</span><span>assays per lot</span></div>
-            <div><span class="v">United States</span><span>all testing</span></div>
-          </div>
-        </div>
-
-        <div>
-          <div class="chroma" id="heroChroma"></div>
-          <p style="font-size:13px;color:var(--ink-mute);margin-top:14px;max-width:44ch;">
-            A purity figure is the area under one peak divided by the area under all of them. It is a ratio, not a guarantee — which is why it is never the only number we publish.
-          </p>
-        </div>
-      </div>
-      <div style="height:clamp(40px,6vw,72px)"></div>
+      <article class="feature" id="featured"></article>
     </div>
   </section>
 
-  <!-- ── testing ───────────────────────────────────────── -->
-  <section class="sec">
-    <div class="shell dual">
-      <div>
-        <div class="rail">
-          <dl>
-            <dt>Identity</dt><dd>Mass spec</dd>
-            <dt>Purity</dt><dd>RP-HPLC 214 nm</dd>
-            <dt>Net peptide</dt><dd>Nitrogen</dd>
-            <dt>Water</dt><dd>Karl Fischer</dd>
-            <dt>Blend ratio</dt><dd>RP-HPLC</dd>
-            <dt>Testing site</dt><dd>United States</dd>
-          </dl>
-        </div>
-      </div>
-      <div>
-        <div class="sec-head">
-          <h2>Three questions, every lot</h2>
-          <p>Most listings answer only the second one, and put it in the header in large type.</p>
-        </div>
-        <div class="stack" style="--sp:26px">
-          <div>
-            <h3 style="margin-bottom:8px">Is it the right molecule?</h3>
-            <p>Mass spectrometry weighs what is in the vial and compares it to the expected mass. Purity says nothing about identity — a vial can be 99% pure and 99% the wrong thing. This test is the one that gets skipped.</p>
-          </div>
-          <div>
-            <h3 style="margin-bottom:8px">How much of the vial is that molecule?</h3>
-            <p>Reversed-phase HPLC at 214 nm, reported as area percent. We publish the method and the wavelength alongside the number, because the same sample gives different figures under different conditions and an unlabelled percentage is not comparable to anything.</p>
-          </div>
-          <div>
-            <h3 style="margin-bottom:8px">If it is a blend, is the ratio real?</h3>
-            <p>A three-compound vial needs a fourth test. Fill weight tells you the total; it does not tell you the proportion. Every blend in the register carries a ratio verification, not an assumed split.</p>
-          </div>
-        </div>
-        <div style="margin-top:32px">
-          <a class="btn btn-ghost" href="testing.html">How the testing works</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── register preview ──────────────────────────────── -->
-  <section class="sec">
-    <div class="shell">
-      <div class="sec-head">
-        <h2>The register</h2>
-        <p>Sixteen compounds, listed by class and mass rather than by marketing category. Each entry carries its sequence where one exists, its form, and its assay record.</p>
-      </div>
-      <div class="register" id="featured"></div>
-      <div style="margin-top:30px;display:flex;gap:12px;flex-wrap:wrap">
-        <a class="btn" href="shop.html">All 16 compounds</a>
-        <a class="btn btn-ghost" href="matcher.html">Not sure which one</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── matcher ───────────────────────────────────────── -->
-  <section class="sec">
-    <div class="shell dual">
-      <div>
-        <div class="sec-head">
-          <h2>Six questions, then a shortlist</h2>
-          <p>Tell it the research area, the study window, and how the compound needs to be handled. It scores all sixteen entries against what you said and returns the three that fit, with the reasoning shown — including why the others scored lower.</p>
-        </div>
-        <a class="btn btn-gold" href="matcher.html">Start</a>
-      </div>
-      <div>
-        <div class="notice">
-          <p style="margin:0"><strong>It asks about research design, not about you.</strong> The questions cover study area, duration, handling, and prior familiarity with the class. It will not ask about symptoms or health status, and it does not produce medical recommendations — it narrows a catalogue of sixteen down to three.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── notes ─────────────────────────────────────────── -->
+  <!-- recent notes -->
   <section class="sec" style="border-bottom:0">
     <div class="shell">
-      <div class="sec-head">
-        <h2>Notes from the lab</h2>
-        <p>Writing about peptide analysis: how the testing is done, what the resulting documentation means, and why the details are worth caring about.</p>
+      <div class="slabel">Recent notes</div>
+      <div class="notegrid" id="noteGrid"></div>
+    </div>
+  </section>
+
+  <!-- about -->
+  <section class="sec" id="about" style="border-bottom:0;background:var(--paper-deep)">
+    <div class="shell">
+      <div class="slabel">About</div>
+      <div class="aboutwrap">
+        <h2>Why &ldquo;SempreViva&rdquo;</h2>
+        <p>&ldquo;Sempre viva&rdquo; means &ldquo;always alive.&rdquo; This is a research supply company focused on the long game. This space is where we write about new innovations in peptide technology and the analytical side of that work: how testing is done, what the resulting documentation means, and why the details are worth caring about.</p>
+        <p>All products are tested for purity, mass measurements, and blend ratios here in the United States.</p>
+        <p style="margin-top:34px">
+          <a class="shopcta" href="shop.html">Shop research compounds</a>
+        </p>
       </div>
-      <div class="notes" id="noteGrid"></div>
-      <div style="margin-top:30px"><a class="btn btn-ghost" href="notes.html">All notes</a></div>
     </div>
   </section>
 
@@ -136,17 +52,26 @@
 <script src="js/site.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
+  const feat = NOTES.find(n=>n.featured) || NOTES[0];
+  const rest = NOTES.filter(n=>n !== feat);
+
+  document.getElementById('featured').innerHTML = `
+    <div class="feature-media"><div class="chroma" id="heroChroma"></div></div>
+    <div>
+      <div class="eyebrow"><span>${feat.cat}</span><span class="mins">${feat.mins} min read</span></div>
+      <h2>${feat.title}</h2>
+      <p>${feat.dek}</p>
+      <a class="readmore" href="notes.html#${slug(feat.title)}" style="margin-top:26px">Read &rarr;</a>
+    </div>`;
+
   drawChromatogram(document.getElementById('heroChroma'), {purity:99.2, lot:'lot SV-BPC-0000'});
 
-  const feat = ['BPC','RETA','GHK','MOTS','WOLV','TESA'].map(bySku);
-  document.getElementById('featured').innerHTML = feat.map(specRow).join('');
-
-  document.getElementById('noteGrid').innerHTML = NOTES.slice(0,3).map(n=>`
-    <a class="note" href="notes.html#${slug(n.title)}">
-      <span class="cat">${n.cat}</span>
+  document.getElementById('noteGrid').innerHTML = rest.map(n=>`
+    <a class="ncard" href="notes.html#${slug(n.title)}">
+      <div class="eyebrow"><span>${n.cat}</span><span class="mins">${n.mins} min</span></div>
       <h3>${n.title}</h3>
       <p>${n.dek}</p>
-      <span class="more">Read &rarr;</span>
+      <span class="readmore">Read &rarr;</span>
     </a>`).join('');
 });
 </script>
