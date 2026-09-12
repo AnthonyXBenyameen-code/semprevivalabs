@@ -620,8 +620,10 @@ body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 
 .cd-checkout[aria-disabled="true"]{opacity:.35;pointer-events:none;}
 
 @media (max-width:520px){
-  .cartdrawer{width:100%;}
-  .cartfab{top:10px;right:10px;width:42px;height:42px;}
+  /* still a panel over the page, not a takeover — a strip of the site stays visible */
+  .cartdrawer{width:min(84vw,360px);}
+  .cartfab{top:10px;right:10px;width:44px;height:44px;}
+  .cd-head,.cd-body,.cd-foot{padding-left:16px;padding-right:16px;}
 }
 
 /* ---------- product grid ---------- */
@@ -667,23 +669,45 @@ body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 
 .pcard-add:hover{background:transparent;color:var(--ink);}
 
 /* ---------- structure comparison figure ---------- */
-.figure{background:var(--glass);border:1px solid var(--rule);padding:20px 20px 16px;}
-.figure svg{width:100%;height:auto;display:block;}
+.figure{background:var(--glass);border:1px solid var(--rule);padding:20px;}
 .figure .f-head{
-  display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--rule-fine);
   font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);
 }
-.fig-col{font-family:var(--mono);font-size:11px;letter-spacing:.1em;fill:var(--gold);}
-.fig-cap{font-family:var(--sans);font-size:12.5px;fill:var(--ink-mute);}
-.fig-prop{font-family:var(--mono);font-size:10px;letter-spacing:.07em;fill:var(--ink-mute);}
-.fig-val{font-family:var(--sans);font-size:13px;fill:var(--ink);}
-.fig-rule{stroke:var(--rule-fine);stroke-width:1;}
-.fig-div{stroke:var(--rule);stroke-width:1;}
+.fig-two{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.fig-half{text-align:center;}
+.fig-half svg{width:100%;height:auto;display:block;margin:10px 0 8px;overflow:visible;}
+.fig-col{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+}
+.fig-cap{font-size:12.5px;color:var(--ink-mute);line-height:1.35;}
 .fig-bond{stroke:var(--ink);stroke-width:1.6;fill:none;}
 .fig-res{fill:var(--paper-deep);stroke:var(--ink);stroke-width:1.4;}
 .fig-ring{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;}
 .fig-ringfill{fill:rgba(194,23,46,.07);stroke:none;}
-.fig-note{font-family:var(--sans);font-size:12px;fill:var(--ink-soft);}
+
+.fig-rows{margin:20px 0 0;padding-top:6px;border-top:1px solid var(--rule);}
+.fig-row{
+  display:grid;grid-template-columns:92px 1fr 1fr;gap:14px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--rule-fine);
+}
+.fig-row:last-child{border-bottom:0;}
+.fig-row dt{
+  font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-mute);
+}
+.fig-row dd{margin:0;font-size:13.5px;color:var(--ink);line-height:1.35;}
+.fig-row dd .w{display:none;}
+.fig-note{margin:16px 0 0;font-size:12.5px;color:var(--ink-soft);max-width:none;}
+
+@media (max-width:620px){
+  .fig-row{grid-template-columns:1fr;gap:5px;padding:13px 0;}
+  .fig-row dd{display:flex;gap:10px;align-items:baseline;}
+  .fig-row dd .w{
+    display:inline-block;flex:none;min-width:58px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);
+  }
+}
 
 /* ---------- explore band between the featured note and Recent notes ---------- */
 .ctaband{
@@ -696,3 +720,33 @@ body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 
 .ctaband-acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .shopcta.ghost{background:transparent;color:var(--ink);}
 .shopcta.ghost:hover{background:var(--ink);color:var(--paper);}
+
+/* ---------- phone refinements ---------- */
+@media (max-width:760px){
+  /* iOS Safari zooms the page when a focused input is under 16px */
+  .calc input, .calc select,
+  .qty input,
+  #coForm input, #coForm textarea,
+  #msg input, #msg textarea{font-size:16px;}
+
+  /* footer links were 17px tall — too small for a thumb */
+  .foot ul a{display:inline-block;padding:7px 0;}
+  .foot ul{gap:2px;}
+
+  /* keep the floating cart clear of the sticky nav's menu button */
+  .cartfab{box-shadow:0 2px 12px rgba(18,48,74,.22);}
+
+  /* the structure figure needs room to breathe at phone width */
+  .figure{padding:14px 14px 12px;}
+  .feature h2{font-size:clamp(1.75rem,7.6vw,2.3rem);}
+
+  /* checkout form: stack the paired fields */
+  #coForm .calc-row[style*="1fr 1fr"],
+  #coForm .calc-row[style*="2fr 1fr 1fr"]{grid-template-columns:1fr !important;}
+}
+
+/* Checkout and contact inputs sit inside <span> wrappers, so they never
+   inherited a width and fell back to the browser default (~195px). */
+#coForm input, #coForm textarea, #coForm select,
+#msg input, #msg textarea{width:100%;}
+#coForm input[type="checkbox"]{width:auto;}

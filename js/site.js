@@ -430,6 +430,8 @@ document.addEventListener('click', e=>{
 
 /* ---------- peptide vs steroid structure figure ----------------------
    Illustrates the featured note. Structural facts only — no claims.
+   Only the drawings live in SVG; every label is real HTML so it stays
+   readable at phone width instead of scaling down with the viewBox.
    Ring coordinates are the real gonane skeleton: three fused six-membered
    rings plus a five-membered ring sharing ring C's edge.                */
 function drawStructureCompare(host){
@@ -441,15 +443,18 @@ function drawStructureCompare(host){
   ];
 
   // peptide: five residues on a zigzag backbone
-  const n = 5, x0 = 168, dx = 44, yHi = 96, yLo = 128;
-  let bonds = '', beads = '';
+  const n = 5, x0 = 14, dx = 48, yHi = 22, yLo = 48;
+  let chain = '';
   for(let i = 0; i < n; i++){
     const x = x0 + i*dx, y = (i % 2 === 0) ? yHi : yLo;
     if(i){
       const px = x0 + (i-1)*dx, py = ((i-1) % 2 === 0) ? yHi : yLo;
-      bonds += `<line class="fig-bond" x1="${px}" y1="${py}" x2="${x}" y2="${y}"/>`;
+      chain += `<line class="fig-bond" x1="${px}" y1="${py}" x2="${x}" y2="${y}"/>`;
     }
-    beads += `<circle class="fig-res" cx="${x}" cy="${y}" r="9.5"/>`;
+  }
+  for(let i = 0; i < n; i++){
+    const x = x0 + i*dx, y = (i % 2 === 0) ? yHi : yLo;
+    chain += `<circle class="fig-res" cx="${x}" cy="${y}" r="9.5"/>`;
   }
 
   const rows = [
@@ -457,34 +462,36 @@ function drawStructureCompare(host){
     ['Solubility', 'Water-soluble',             'Fat-soluble'],
     ['Swallowed',  'Digested before absorbing', 'Survives digestion']
   ];
-  const rowY = [252, 296, 340];
-  const rowSvg = rows.map(([k,a,b],i)=>`
-    <text class="fig-prop" x="140" y="${rowY[i]}" text-anchor="end">${k.toUpperCase()}</text>
-    <text class="fig-val"  x="168" y="${rowY[i]}">${a}</text>
-    <text class="fig-val"  x="372" y="${rowY[i]}">${b}</text>
-    ${i < rows.length-1 ? `<line class="fig-rule" x1="0" y1="${rowY[i]+18}" x2="560" y2="${rowY[i]+18}"/>` : ''}`
-  ).join('');
 
   host.innerHTML = `
     <div class="f-head"><span>Structure</span><span>Two different molecule classes</span></div>
-    <svg viewBox="0 0 560 386" role="img"
-         aria-label="A peptide is a chain of amino acid residues; a steroid is four fused carbon rings. Peptides act on receptors at the cell surface, dissolve in water, and are digested if swallowed. Steroids act on receptors inside the cell, dissolve in fat, and survive digestion.">
-      <text class="fig-col" x="168" y="34">PEPTIDE</text>
-      <text class="fig-col" x="372" y="34">STEROID</text>
 
-      ${bonds}${beads}
-      <text class="fig-cap" x="168" y="172">Chain of amino acids</text>
+    <div class="fig-two">
+      <div class="fig-half">
+        <div class="fig-col">Peptide</div>
+        <svg viewBox="0 0 220 70" role="img" aria-label="A peptide: a chain of linked amino acid residues.">${chain}</svg>
+        <div class="fig-cap">Chain of amino acids</div>
+      </div>
+      <div class="fig-half">
+        <div class="fig-col">Steroid</div>
+        <svg viewBox="0 0 185 66" role="img" aria-label="A steroid: four fused carbon rings.">
+          ${RINGS.map(d=>`<path class="fig-ringfill" d="${d}"/>`).join('')}
+          ${RINGS.map(d=>`<path class="fig-ring" d="${d}"/>`).join('')}
+        </svg>
+        <div class="fig-cap">Four fused carbon rings</div>
+      </div>
+    </div>
 
-      <g transform="translate(372,78) scale(1.05)">
-        ${RINGS.map(d=>`<path class="fig-ringfill" d="${d}"/>`).join('')}
-        ${RINGS.map(d=>`<path class="fig-ring" d="${d}"/>`).join('')}
-      </g>
-      <text class="fig-cap" x="372" y="172">Four fused carbon rings</text>
+    <dl class="fig-rows">
+      ${rows.map(([k,a,b])=>`
+        <div class="fig-row">
+          <dt>${k}</dt>
+          <dd><span class="w">Peptide</span>${a}</dd>
+          <dd><span class="w">Steroid</span>${b}</dd>
+        </div>`).join('')}
+    </dl>
 
-      <line class="fig-div" x1="0" y1="208" x2="560" y2="208"/>
-      ${rowSvg}
-      <text class="fig-note" x="0" y="378">Nothing structural in common — which is why they behave differently.</text>
-    </svg>`;
+    <p class="fig-note">Nothing structural in common — which is why they behave differently.</p>`;
 }
 
 /* ---------- chromatogram (hero) ---------- */
