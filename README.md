@@ -14,6 +14,12 @@ notes.html      Notes from the lab (blog index)
 cart.html       Cart + checkout
 contact.html    Contact
 
+bump-version.py    Stamps ?v=<hash> onto every css/js reference so a deploy
+                   can't serve a returning visitor stale assets. GitHub Pages
+                   caches assets for 10 minutes, so RUN THIS BEFORE EVERY
+                   COMMIT that touches css/ or js/:
+                       python3 bump-version.py
+
 build-artifact.py  Builds dist-single.html (below)
 dist-single.html   Single-file build of the whole site, hash-routed.
                    For sharing/pitching where a multi-page site can't be
