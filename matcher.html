@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Find a compound — SempreViva Labs</title>
+<meta name="description" content="Six questions about your research design, scored against all sixteen compounds in the register.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2316211C'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23A8791B' font-family='Georgia,serif'%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="matcher.html">
+<div id="siteHeader"></div>
+
+<main class="shell">
+  <div class="matcher">
+    <div class="mprog" id="prog" aria-hidden="true"></div>
+    <div id="stage"></div>
+  </div>
+</main>
+
+<div id="siteFooter"></div>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script src="js/matcher.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const stage = document.getElementById('stage');
+  const prog  = document.getElementById('prog');
+  const ans = {};
+  let step = 0;
+
+  prog.innerHTML = QUESTIONS.map(()=>'<span></span>').join('');
+
+  function paintProg(){
+    [...prog.children].forEach((s,i)=>s.classList.toggle('on', i<=step && step<QUESTIONS.length));
+  }
+
+  function renderQ(){
+    const Q = QUESTIONS[step];
+    paintProg();
+    stage.innerHTML = `
+      <div class="mstep">
+        <p class="num" style="font-size:12px;color:var(--ink-mute);margin-bottom:14px">
+          ${String(step+1).padStart(2,'0')} / ${String(QUESTIONS.length).padStart(2,'0')}
+        </p>
+        <h1 class="mq">${Q.q}</h1>
+        <p class="mhint">${Q.hint}</p>
+        <div class="mopts" role="group">
+          ${Q.opts.map(([v,t,d],i)=>`
+            <button class="mopt" data-v="${v}" aria-pressed="${ans[Q.id]===v}">
+              <span class="mopt-k">${String.fromCharCode(65+i)}</span>
+              <span><span class="mopt-t">${t}</span>${d?`<span class="mopt-d" style="display:block">${d}</span>`:''}</span>
+            </button>`).join('')}
+        </div>
+        <div class="mnav">
+          <button class="mback" id="back" ${step===0?'style="visibility:hidden"':''}>&larr; Back</button>
+          <span class="num" style="font-size:12px;color:var(--ink-mute)">Press A–E or click</span>
+        </div>
+      </div>`;
+
+    stage.querySelectorAll('.mopt').forEach(b=>b.addEventListener('click', ()=>pick(b.dataset.v)));
+    const back = document.getElementById('back');
+    if(back) back.addEventListener('click', ()=>{ if(step>0){ step--; renderQ(); } });
+  }
+
+  function pick(v){
+    ans[QUESTIONS[step].id] = v;
+    step++;
+    if(step < QUESTIONS.length) renderQ(); else renderResults();
+  }
+
+  document.addEventListener('keydown', e=>{
+    if(step >= QUESTIONS.length) return;
+    const i = e.key.toUpperCase().charCodeAt(0) - 65;
+    const opts = QUESTIONS[step].opts;
+    if(i>=0 && i<opts.length && !e.metaKey && !e.ctrlKey) pick(opts[i][0]);
+    if(e.key==='Backspace' && step>0){ e.preventDefault(); step--; renderQ(); }
+  });
+
+  function renderResults(){
+    paintProg();
+    const ranked = rank(ans);
+    // Only compounds that actually sit in the chosen research area go on the
+    // shortlist. If the area holds fewer than three, show fewer rather than
+    // padding it out with something from a different area.
+    const inArea = ranked.filter(r => r.p.areas.includes(ans.area));
+    const top  = (inArea.length ? inArea : ranked).slice(0,3);
+    const rest = ranked.filter(r => !top.includes(r)).slice(0,3);
+    const WORD = {1:'One that fits', 2:'Two that fit', 3:'Three that fit'};
+    const areaName = CATEGORIES.find(c=>c.id===ans.area).label.toLowerCase();
+
+    stage.innerHTML = `
+      <div class="mres">
+        <p class="num" style="font-size:12px;color:var(--ink-mute);margin-bottom:14px">Result</p>
+        <h1 class="mq" style="margin-bottom:12px">${WORD[top.length] || 'What fits'}</h1>
+        <p class="mhint" style="margin-bottom:36px">
+          Scored across all sixteen entries on research area, form, study window, handling complexity, and price ceiling. Area carries the most weight.${top.length < 3 ? ` The register holds ${top.length === 1 ? 'only one compound' : 'only ' + top.length + ' compounds'} in ${areaName}, so the shortlist is short.` : ''}
+        </p>
+
+        ${top.map(r=>`
+          <article class="match">
+            <div class="mscore">
+              <div class="n">${r.norm}</div>
+              <div class="l">score</div>
+              <div class="mbar"><i data-w="${r.norm}"></i></div>
+            </div>
+            <div>
+              <a href="product.html?sku=${r.p.sku}" style="font-family:var(--display);font-size:1.5rem;text-decoration:none;letter-spacing:-.015em">${r.p.name}</a>
+              <p style="font-size:14px;color:var(--ink-mute);margin:5px 0 0">${r.p.klass}</p>
+              <ul class="mwhy">${r.why.map(w=>`<li>${w}</li>`).join('')}</ul>
+            </div>
+            <div style="text-align:right">
+              <div class="num" style="font-size:1.2rem">${money(lowest(r.p))}</div>
+              <a class="btn btn-ghost btn-sm" style="margin-top:10px" href="product.html?sku=${r.p.sku}">View</a>
+            </div>
+          </article>`).join('')}
+
+        <details style="margin-top:40px;border-top:1px solid var(--rule);padding-top:20px">
+          <summary style="cursor:pointer;font-size:14.5px;color:var(--ink-soft)">Why the next ${rest.length} scored lower</summary>
+          <div style="margin-top:18px;display:grid;gap:14px">
+            ${rest.map(r=>`
+              <div style="display:flex;gap:16px;align-items:baseline;font-size:14px">
+                <span class="num" style="color:var(--ink-mute);min-width:34px">${r.norm}</span>
+                <span><a href="product.html?sku=${r.p.sku}" style="color:inherit">${r.p.name}</a>
+                <span style="color:var(--ink-mute)"> — ${r.why[0] || 'outside the stated research area'}${lowest(r.p) > +ans.budget ? `, and ${money(lowest(r.p))} is over your ceiling` : ''}</span></span>
+              </div>`).join('')}
+          </div>
+        </details>
+
+        <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="shop.html">See the full register</a>
+          <button class="btn btn-ghost" id="again">Start over</button>
+        </div>
+
+        <div class="notice" style="margin-top:36px">
+          <p style="margin:0">This is a catalogue filter, not advice. It ranks sixteen products against six answers about study design and nothing else. All products are supplied for laboratory research use only.</p>
+        </div>
+      </div>`;
+
+    requestAnimationFrame(()=>{
+      stage.querySelectorAll('.mbar i').forEach(b=>{ b.style.width = b.dataset.w + '%'; });
+    });
+    document.getElementById('again').addEventListener('click', ()=>{
+      step = 0; Object.keys(ans).forEach(k=>delete ans[k]); renderQ();
+    });
+  }
+
+  renderQ();
+});
+</script>
+</body>
+</html>

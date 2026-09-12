@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cart — SempreViva Labs</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2316211C'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23A8791B' font-family='Georgia,serif'%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="cart.html">
+<div id="siteHeader"></div>
+
+<main>
+  <section class="sec" style="border-bottom:0">
+    <div class="shell">
+      <div class="sec-head"><h1 style="font-size:clamp(2.1rem,4.2vw,3.2rem)">Cart</h1></div>
+
+      <div id="empty" class="hide">
+        <p style="color:var(--ink-mute)">Nothing in the cart yet.</p>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="shop.html">Open the register</a>
+          <a class="btn btn-ghost" href="matcher.html">Find a compound</a>
+        </div>
+      </div>
+
+      <div id="full" class="hide">
+        <div id="lines"></div>
+        <div class="totals">
+          <div class="line"><span>Subtotal</span><span class="num" id="tSub">—</span></div>
+          <div class="line"><span>Shipping</span><span class="num" id="tShip">—</span></div>
+          <div class="line grand"><span>Total</span><span class="num" id="tTotal">—</span></div>
+          <p id="freeHint" style="font-size:12.5px;color:var(--sage);margin-top:10px;text-align:right"></p>
+        </div>
+
+        <div class="dual" style="margin-top:52px;padding-top:40px;border-top:1px solid var(--rule)">
+          <div>
+            <h2 style="font-size:1.6rem;margin-bottom:14px">Shipping</h2>
+            <p style="font-size:14px;color:var(--ink-mute)">Ships from Kansas City, MO. Flat $9, free over $200.</p>
+            <div class="notice" style="margin-top:22px">
+              <p style="margin:0"><strong>Research use only.</strong> By placing this order you confirm you are ordering these materials for laboratory research use, that you are not ordering them for human or veterinary use, and that you are responsible for handling them under applicable law.</p>
+            </div>
+          </div>
+
+          <form id="coForm" style="background:var(--glass);border:1px solid var(--rule);padding:28px">
+            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_name">Full name</label><input id="f_name" required style="font-family:var(--sans)"></div>
+            <div class="calc-row" style="grid-template-columns:1fr 1fr;gap:14px">
+              <span><label for="f_email" style="display:block;margin-bottom:6px">Email</label><input id="f_email" type="email" required style="font-family:var(--sans)"></span>
+              <span><label for="f_phone" style="display:block;margin-bottom:6px">Phone</label><input id="f_phone" type="tel" required style="font-family:var(--sans)"></span>
+            </div>
+            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_line1">Address</label><input id="f_line1" required style="font-family:var(--sans)"></div>
+            <div class="calc-row" style="grid-template-columns:1fr"><label for="f_line2">Apt, suite (optional)</label><input id="f_line2" style="font-family:var(--sans)"></div>
+            <div class="calc-row" style="grid-template-columns:2fr 1fr 1fr;gap:14px">
+              <span><label for="f_city" style="display:block;margin-bottom:6px">City</label><input id="f_city" required style="font-family:var(--sans)"></span>
+              <span><label for="f_state" style="display:block;margin-bottom:6px">State</label><input id="f_state" required maxlength="2" style="text-transform:uppercase"></span>
+              <span><label for="f_zip" style="display:block;margin-bottom:6px">ZIP</label><input id="f_zip" required inputmode="numeric"></span>
+            </div>
+            <label style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);margin:18px 0 20px;cursor:pointer">
+              <input id="f_ack" type="checkbox" required style="width:auto;margin-top:3px">
+              <span>I am ordering these materials for laboratory research use only, and not for human or veterinary use.</span>
+            </label>
+            <button class="btn btn-gold" type="submit" style="width:100%" id="payBtn">Place order &middot; <span class="num" id="btnTotal"></span></button>
+            <div id="coOut" style="margin-top:18px"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script src="js/checkout.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const lines = document.getElementById('lines');
+
+  function paint(){
+    const items = Cart.detailed();
+    document.getElementById('empty').classList.toggle('hide', items.length>0);
+    document.getElementById('full').classList.toggle('hide', items.length===0);
+    if(!items.length) return;
+
+    lines.innerHTML = items.map(i=>`
+      <div class="cart-line">
+        <div>
+          <a class="cart-name" href="product.html?sku=${i.sku}">${i.product.name}</a>
+          <div class="cart-size">${i.size.label || i.mg + ' mg'} &middot; SV-${i.sku} &middot; ${money(i.size.price)} each</div>
+        </div>
+        <div class="qty" style="margin:0">
+          <button type="button" data-sku="${i.sku}" data-mg="${i.mg}" data-d="-1" aria-label="Decrease">&minus;</button>
+          <input value="${i.qty}" data-sku="${i.sku}" data-mg="${i.mg}" data-set aria-label="Quantity for ${i.product.name}">
+          <button type="button" data-sku="${i.sku}" data-mg="${i.mg}" data-d="1" aria-label="Increase">+</button>
+        </div>
+        <div class="num" style="font-size:1.05rem;min-width:76px;text-align:right">${money(i.line)}</div>
+        <button class="cart-rm" data-sku="${i.sku}" data-mg="${i.mg}" data-rm>Remove</button>
+      </div>`).join('');
+
+    document.getElementById('tSub').textContent   = money(Cart.subtotal());
+    document.getElementById('tShip').textContent  = Cart.shipping() ? money(Cart.shipping()) : 'Free';
+    document.getElementById('tTotal').textContent = money(Cart.total());
+    document.getElementById('btnTotal').textContent = money(Cart.total());
+
+    const gap = SVL.freeShipOver - Cart.subtotal();
+    document.getElementById('freeHint').textContent =
+      gap > 0 ? money(gap) + ' more for free shipping' : 'Shipping is free on this order';
+  }
+
+  lines.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    const sku = b.dataset.sku, mg = +b.dataset.mg;
+    if(b.hasAttribute('data-rm')) return Cart.remove(sku, mg);
+    if(b.dataset.d){
+      const cur = Cart.read().find(i=>i.sku===sku && i.mg===mg);
+      Cart.setQty(sku, mg, (cur ? cur.qty : 0) + (+b.dataset.d));
+    }
+  });
+  lines.addEventListener('change', e=>{
+    const inp = e.target.closest('[data-set]'); if(!inp) return;
+    Cart.setQty(inp.dataset.sku, +inp.dataset.mg, Math.max(0, parseInt(inp.value) || 0));
+  });
+  document.addEventListener('cart:change', paint);
+
+  document.getElementById('coForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const order = Checkout.buildOrder({
+      name:v('f_name'), email:v('f_email'), phone:v('f_phone'),
+      line1:v('f_line1'), line2:v('f_line2'), city:v('f_city'),
+      state:v('f_state').toUpperCase(), zip:v('f_zip'),
+      ack: document.getElementById('f_ack').checked
+    });
+    const out = document.getElementById('coOut');
+    const btn = document.getElementById('payBtn');
+    btn.disabled = true;
+    try{
+      const res = await Processor.charge(order);
+      out.innerHTML = `<div class="notice"><p style="margin:0"><strong>Order placed.</strong> Reference ${res.reference}.</p></div>`;
+      Cart.clear();
+    }catch(err){
+      out.innerHTML = `
+        <div class="notice notice-hard"><p style="margin:0">${err.message}</p></div>
+        <details style="margin-top:14px">
+          <summary style="cursor:pointer;font-size:13.5px;color:var(--ink-soft)">Show order details to send</summary>
+          <pre class="num" style="white-space:pre-wrap;font-size:12px;background:var(--paper);border:1px solid var(--rule);padding:16px;margin-top:10px;line-height:1.6">${Checkout.summarise(order).replace(/[<>&]/g,'')}</pre>
+          <button class="btn btn-ghost btn-sm" type="button" id="copyOrder" style="margin-top:10px">Copy to clipboard</button>
+        </details>`;
+      const cp = document.getElementById('copyOrder');
+      if(cp) cp.addEventListener('click', ()=>{
+        navigator.clipboard.writeText(Checkout.summarise(order)).then(()=>{ cp.textContent='Copied'; });
+      });
+    }finally{ btn.disabled = false; }
+  });
+
+  paint();
+});
+</script>
+</body>
+</html>

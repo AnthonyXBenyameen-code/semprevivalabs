@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316211C%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 text-anchor=%27middle%27 fill=%27%23A8791B%27 font-family=%27Georgia,serif%27%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+<title>Notes from the lab — SempreViva Labs</title>
+<meta name="description" content="Writing on peptide analysis: HPLC, mass spectrometry, certificates of analysis, purity standards, and lyophilisation.">
+</head>
+<body data-page="notes.html">
+<div id="siteHeader"></div>
+<main>
+  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">
+    <div class="shell">
+      <div class="sec-head">
+        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">Notes from the lab</h1>
+        <p>New work in peptide technology, and the analytical side of it: how testing is done, what the resulting documentation means, and why the details are worth caring about.</p>
+      </div>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:clamp(24px,3vw,36px);border-bottom:0">
+    <div class="shell">
+      <div id="noteList"></div>
+    </div>
+  </section>
+</main>
+<div id="siteFooter"></div>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const groups = {};
+  NOTES.forEach(n=>{ (groups[n.cat] = groups[n.cat] || []).push(n); });
+  document.getElementById('noteList').innerHTML = Object.entries(groups).map(([cat,items])=>`
+    <div style="margin-bottom:48px">
+      <h2 style="font-size:1.5rem;padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:0">${cat}</h2>
+      ${items.map(n=>`
+        <article id="${slug(n.title)}" style="padding:24px 0;border-bottom:1px solid var(--rule-fine)">
+          <h3 style="font-size:1.35rem;margin-bottom:8px">${n.title}</h3>
+          <p style="color:var(--ink-soft);margin:0">${n.dek}</p>
+        </article>`).join('')}
+    </div>`).join('');
+});
+</script>
+</body>
+</html>

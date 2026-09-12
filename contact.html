@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Contact — SempreViva Labs</title>
+<meta name="description" content="Reach SempreViva Labs in Kansas City, MO. Phone, text, and email.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316211C%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 text-anchor=%27middle%27 fill=%27%23A8791B%27 font-family=%27Georgia,serif%27%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="contact.html">
+<div id="siteHeader"></div>
+<main>
+  <section class="sec" style="border-bottom:0">
+    <div class="shell dual">
+      <div>
+        <div class="sec-head">
+          <h1 style="font-size:clamp(2.3rem,4.6vw,3.4rem)">Get in touch</h1>
+          <p>Questions about a lot, a certificate, an order, or a compound that is not in the register yet.</p>
+        </div>
+        <div class="rail" style="max-width:420px">
+          <dl>
+            <dt>Phone</dt><dd><a href="tel:+18166417377" style="text-decoration:none">(816) 641-7377</a></dd>
+            <dt>Text</dt><dd><a href="sms:+18166417377" style="text-decoration:none">(816) 641-7377</a></dd>
+            <dt>Email</dt><dd style="font-size:11.5px"><a href="mailto:support@semprevivalabs.com" style="text-decoration:none">support@semprevivalabs.com</a></dd>
+            <dt>Location</dt><dd>Kansas City, MO</dd>
+          </dl>
+        </div>
+      </div>
+      <div>
+        <form id="msg" style="background:var(--glass);border:1px solid var(--rule);padding:28px">
+          <div class="calc-row" style="grid-template-columns:1fr">
+            <label for="cName">Name</label>
+            <input id="cName" required style="font-family:var(--sans)">
+          </div>
+          <div class="calc-row" style="grid-template-columns:1fr">
+            <label for="cEmail">Email</label>
+            <input id="cEmail" type="email" required style="font-family:var(--sans)">
+          </div>
+          <div class="calc-row" style="grid-template-columns:1fr">
+            <label for="cLot">Lot number (optional)</label>
+            <input id="cLot" placeholder="SV-BPC-0000">
+          </div>
+          <div class="calc-row" style="grid-template-columns:1fr">
+            <label for="cBody">Message</label>
+            <textarea id="cBody" rows="6" required
+              style="font-family:var(--sans);font-size:14px;padding:11px;border:1px solid var(--rule);background:var(--paper);border-radius:1px;width:100%;resize:vertical"></textarea>
+          </div>
+          <button class="btn btn-gold" type="submit" style="width:100%;margin-top:6px">Send message</button>
+          <p style="font-size:12px;color:var(--ink-mute);margin-top:14px">Opens your mail client. Wire this to a form endpoint to send directly from the page.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="siteFooter"></div>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+document.getElementById('msg').addEventListener('submit', e=>{
+  e.preventDefault();
+  const g = id => document.getElementById(id).value.trim();
+  const lot = g('cLot');
+  const body = 'From: ' + g('cName') + ' <' + g('cEmail') + '>' + (lot ? '\nLot: ' + lot : '') + '\n\n' + g('cBody');
+  location.href = 'mailto:support@semprevivalabs.com?subject=' +
+    encodeURIComponent('Website enquiry' + (lot ? ' — lot ' + lot : '')) +
+    '&body=' + encodeURIComponent(body);
+});
+</script>
+</body>
+</html>

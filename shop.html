@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316211C%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 text-anchor=%27middle%27 fill=%27%23A8791B%27 font-family=%27Georgia,serif%27%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+<title>Compound register — SempreViva Labs</title>
+<meta name="description" content="Sixteen research compounds listed by class, mass, and sequence. Every lot tested for identity, purity, and blend ratio.">
+</head>
+<body data-page="shop.html">
+<div id="siteHeader"></div>
+
+<main>
+  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">
+    <div class="shell">
+      <div class="sec-head">
+        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">Compound register</h1>
+        <p>Listed by structural class rather than by use. Sequence is shown where a defined one exists; blends are marked, and each carries a ratio verification in addition to the purity assay.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:clamp(28px,3vw,40px)">
+    <div class="shell">
+      <div class="filters" id="filters"></div>
+      <div class="register" id="register"></div>
+      <p id="empty" class="hide" style="padding:40px 0;color:var(--ink-mute)">Nothing in the register matches that filter.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="blends" style="border-bottom:0">
+    <div class="shell dual">
+      <div>
+        <div class="sec-head">
+          <h2>On blends</h2>
+          <p>A blend is not a discount bundle. It is several compounds co-lyophilised in one vial, which means the proportion has to be measured rather than assumed.</p>
+        </div>
+        <a class="btn btn-ghost" href="testing.html#ratio">How ratio verification works</a>
+      </div>
+      <div>
+        <div class="register" id="blendList"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  let active = 'all';
+  const reg = document.getElementById('register');
+  const empty = document.getElementById('empty');
+
+  const chips = [['all','Everything'], ...CATEGORIES.map(c=>[c.id,c.label]), ['blend','Blends only']];
+  document.getElementById('filters').innerHTML =
+    chips.map(([id,l])=>`<button class="chip" data-f="${id}" aria-pressed="${id==='all'}">${l}</button>`).join('') +
+    '<span class="filter-count" id="count"></span>';
+
+  function paint(){
+    const list = PRODUCTS.filter(p =>
+      active==='all' ? true : active==='blend' ? p.blend : p.cat===active);
+    reg.innerHTML = list.map(specRow).join('');
+    empty.classList.toggle('hide', list.length>0);
+    document.getElementById('count').textContent = list.length + ' of ' + PRODUCTS.length;
+  }
+
+  document.getElementById('filters').addEventListener('click', e=>{
+    const b = e.target.closest('.chip'); if(!b) return;
+    active = b.dataset.f;
+    document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed', String(c===b)));
+    paint();
+  });
+  paint();
+
+  document.getElementById('blendList').innerHTML =
+    PRODUCTS.filter(p=>p.blend).map(specRow).join('');
+});
+</script>
+</body>
+</html>

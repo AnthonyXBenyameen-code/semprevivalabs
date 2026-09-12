@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Testing standards — SempreViva Labs</title>
+<meta name="description" content="How every lot is tested: identity by mass spectrometry, purity by RP-HPLC, and blend ratio verification. All testing performed in the United States.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316211C%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 text-anchor=%27middle%27 fill=%27%23A8791B%27 font-family=%27Georgia,serif%27%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="testing.html">
+<div id="siteHeader"></div>
+<main>
+
+  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">
+    <div class="shell">
+      <div class="sec-head">
+        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">What we test, and what the numbers mean</h1>
+        <p>All products are tested for purity, mass measurements, and blend ratios here in the United States. This page explains what each of those tests actually establishes — and what it does not.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="shell dual">
+      <div class="rail">
+        <dl>
+          <dt>Identity</dt><dd>ESI-MS</dd>
+          <dt>Purity</dt><dd>RP-HPLC, 214 nm</dd>
+          <dt>Net peptide</dt><dd>Nitrogen determination</dd>
+          <dt>Water</dt><dd>Karl Fischer</dd>
+          <dt>Blend ratio</dt><dd>RP-HPLC, per component</dd>
+          <dt>Appearance</dt><dd>Visual</dd>
+          <dt>Location</dt><dd>United States</dd>
+        </dl>
+      </div>
+      <div class="stack" style="--sp:36px">
+        <div id="identity">
+          <h2 style="margin-bottom:12px">Identity comes first</h2>
+          <p>Mass spectrometry ionises the sample and measures mass-to-charge ratio. The observed mass either matches the expected mass for the sequence or it does not. This is the test that answers "is this the molecule on the label."</p>
+          <p>It gets skipped more often than it should, because purity is the number people look for. But purity is a ratio of one peak to all peaks — it describes how dominant the main species is, not what that species is. A sample can be 99% one compound and that compound can be the wrong one.</p>
+        </div>
+
+        <div id="purity">
+          <h2 style="margin-bottom:12px">Purity is a method, not a number</h2>
+          <p>Reversed-phase HPLC pushes the sample through a packed column under pressure. Components that interact more strongly with the stationary phase come out later. A detector at the far end records absorbance, and each species draws a peak.</p>
+          <p>Area percent is the area under the main peak divided by the total area under all peaks. Change the wavelength, the gradient, or the column and the same vial gives a different figure — which is why we publish the method and the detection wavelength next to the percentage. A purity number with no method attached cannot be compared to anything.</p>
+          <p>There is a second trap. Area percent, net peptide content, and total weight purity are three different measurements that all get printed as a percentage. A vial can read 99% by HPLC and still be a substantial fraction salt and residual water by mass, because HPLC only sees what absorbs at that wavelength. Net peptide content is the figure that tells you how much peptide you actually bought.</p>
+        </div>
+
+        <div id="ratio">
+          <h2 style="margin-bottom:12px">Blends need a fourth test</h2>
+          <p>When three compounds share a vial, purity tells you how clean the contents are and identity tells you the components are the right ones. Neither tells you the proportion.</p>
+          <p>Fill weight is not proof of ratio. Two powders can be weighed correctly and still separate, settle, or partition unevenly during lyophilisation. Ratio verification runs the reconstituted blend through HPLC and integrates each component peak separately, so the stated split is measured rather than assumed.</p>
+          <p>Every blend in the register — Wolverine, Deadpool, Glow, and Klow — carries one.</p>
+        </div>
+
+        <div id="handling">
+          <h2 style="margin-bottom:12px">Lyophilisation, and the clock it stops</h2>
+          <p>Freeze-drying removes water by sublimation: the sample is frozen, then held under vacuum so ice passes straight to vapour without melting. Skipping the liquid phase is the point — liquid water drives hydrolysis, and hydrolysis is what breaks peptide bonds.</p>
+          <p>The result is a dry cake that is stable at room temperature in transit and keeps far longer frozen. Adding diluent restarts the clock the dry state had stopped. After that: 2–8&nbsp;°C, out of the light, and as few freeze–thaw cycles as the work allows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="coa">
+    <div class="shell">
+      <div class="sec-head">
+        <h2>COA lookup</h2>
+        <p>Every vial carries a lot number on the label. Enter it to pull the certificate of analysis for that specific lot — not a representative document for the product line.</p>
+      </div>
+      <form id="coaForm" style="display:flex;gap:12px;flex-wrap:wrap;max-width:560px">
+        <input id="coaLot" type="text" placeholder="Lot number, e.g. SV-BPC-0000" aria-label="Lot number"
+               style="flex:1;min-width:240px;font-family:var(--mono);font-size:14px;padding:13px 14px;border:1px solid var(--rule);background:var(--glass);border-radius:1px">
+        <button class="btn" type="submit">Look up</button>
+      </form>
+      <div id="coaOut" style="margin-top:22px;max-width:640px"></div>
+    </div>
+  </section>
+
+</main>
+<div id="siteFooter"></div>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+document.getElementById('coaForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const lot = document.getElementById('coaLot').value.trim();
+  const out = document.getElementById('coaOut');
+  if(!lot){ out.innerHTML=''; return; }
+  out.innerHTML = `<div class="notice notice-hard">
+    <p style="margin:0"><strong>Lookup not connected.</strong> No record found for <span class="num">${lot.replace(/[<>&]/g,'')}</span>.
+    This form is wired and ready — point it at the lot record store and it will return the certificate for that lot.
+    Until then, email <a href="mailto:support@semprevivalabs.com" style="color:inherit">support@semprevivalabs.com</a> with the lot number.</p></div>`;
+});
+</script>
+</body>
+</html>
