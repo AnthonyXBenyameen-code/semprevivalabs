@@ -526,6 +526,150 @@ body[data-page]:not([data-page="./"]) .brandhead{padding:clamp(22px,3.4vw,36px) 
   .navbar-links a{width:100%;padding:13px 0;border-bottom:1px solid var(--rule-fine);}
   .navbar-links a:hover{border-bottom-color:var(--rule-fine);}
 }
+
+/* ============================================================
+   Floating cart button + slide-out drawer
+   ============================================================ */
+
+.cartfab{
+  position:fixed;top:14px;right:16px;z-index:200;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:46px;height:46px;background:var(--paper);border:1px solid var(--ink);
+  cursor:pointer;padding:0;color:var(--ink);
+  box-shadow:0 2px 10px rgba(18,48,74,.13);transition:background .16s,color .16s;
+}
+.cartfab:hover{background:var(--ink);color:var(--paper);}
+.cartfab svg{width:20px;height:20px;display:block;}
+.cartfab .badge{
+  position:absolute;top:-7px;right:-7px;min-width:19px;height:19px;padding:0 5px;
+  background:var(--gold);color:#fff;border-radius:19px;
+  font-family:var(--mono);font-size:10.5px;line-height:19px;text-align:center;
+}
+.cartfab .badge[hidden]{display:none;}
+
+.cartscrim{
+  position:fixed;inset:0;z-index:210;background:rgba(18,48,74,.34);
+  opacity:0;pointer-events:none;transition:opacity .3s var(--ease);
+}
+.cartscrim.open{opacity:1;pointer-events:auto;}
+
+.cartdrawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:220;
+  width:max(320px,16.67vw);max-width:100%;
+  background:var(--paper);border-left:1px solid var(--rule);
+  display:flex;flex-direction:column;
+  transform:translateX(101%);transition:transform .34s var(--ease);
+  box-shadow:-8px 0 26px rgba(18,48,74,.12);
+}
+.cartdrawer.open{transform:translateX(0);}
+
+.cd-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:18px 20px;border-bottom:1px solid var(--rule);flex:none;
+}
+.cd-title{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.cd-close{background:none;border:0;cursor:pointer;font-size:21px;line-height:1;color:var(--ink-mute);padding:2px 4px;}
+.cd-close:hover{color:var(--ink);}
+
+.cd-body{flex:1;overflow-y:auto;padding:6px 20px 20px;}
+
+.cd-line{padding:18px 0;border-bottom:1px solid var(--rule-fine);}
+.cd-line .nm{font-family:var(--display);font-size:1.06rem;line-height:1.2;text-decoration:none;display:block;color:var(--ink);}
+.cd-line .mg{font-family:var(--mono);font-size:11px;color:var(--ink-mute);margin-top:3px;}
+.cd-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;}
+.cd-qty{display:inline-flex;align-items:center;border:1px solid var(--rule);}
+.cd-qty button{background:none;border:0;cursor:pointer;width:28px;height:28px;font-size:15px;line-height:1;color:var(--ink);}
+.cd-qty button:hover{background:var(--paper-deep);}
+.cd-qty .n{
+  font-family:var(--mono);font-size:12.5px;min-width:30px;text-align:center;
+  border-left:1px solid var(--rule);border-right:1px solid var(--rule);height:28px;line-height:28px;
+}
+.cd-line .amt{font-family:var(--mono);font-size:13.5px;}
+.cd-rm{
+  background:none;border:0;cursor:pointer;padding:0;margin-top:9px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-mute);text-decoration:underline;
+}
+.cd-rm:hover{color:var(--gold);}
+
+.cd-empty{padding:34px 0;color:var(--ink-mute);font-size:14px;}
+
+.cd-recs{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule);}
+.cd-recs .lbl{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+.cd-rec{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule-fine);}
+.cd-rec .t{min-width:0;}
+.cd-rec .t a{font-size:13.5px;text-decoration:none;color:var(--ink);display:block;line-height:1.25;}
+.cd-rec .t .p{font-family:var(--mono);font-size:11px;color:var(--ink-mute);margin-top:2px;}
+.cd-add{
+  background:none;border:1px solid var(--ink);cursor:pointer;flex:none;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 11px;color:var(--ink);transition:background .15s,color .15s;
+}
+.cd-add:hover{background:var(--ink);color:var(--paper);}
+
+.cd-foot{flex:none;border-top:1px solid var(--rule);padding:16px 20px 20px;background:var(--glass);}
+.cd-sub{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px;}
+.cd-sub .k{font-size:13px;color:var(--ink-mute);}
+.cd-sub .v{font-family:var(--mono);font-size:1.1rem;}
+.cd-ship{font-size:11.5px;color:var(--sage);margin-bottom:14px;}
+.cd-checkout{
+  display:block;width:100%;text-align:center;background:var(--ink);color:var(--paper);
+  text-decoration:none;padding:14px 16px;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+  transition:background .16s,color .16s;
+}
+.cd-checkout:hover{background:transparent;color:var(--ink);}
+.cd-checkout[aria-disabled="true"]{opacity:.35;pointer-events:none;}
+
+@media (max-width:520px){
+  .cartdrawer{width:100%;}
+  .cartfab{top:10px;right:10px;width:42px;height:42px;}
+}
+
+/* ---------- product grid ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(266px,1fr));gap:clamp(16px,1.8vw,24px);}
+.pcard{
+  background:var(--glass);border:1px solid var(--rule-fine);
+  padding:20px 20px 18px;display:flex;flex-direction:column;
+  transition:border-color .18s,box-shadow .18s;
+}
+.pcard:hover{border-color:var(--ink-mute);box-shadow:0 3px 14px rgba(18,48,74,.07);}
+.pcard-sku{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-mute);margin-bottom:12px;}
+.pcard-name{
+  font-family:var(--display);font-size:1.42rem;line-height:1.12;letter-spacing:-.012em;
+  color:var(--ink);text-decoration:none;display:block;
+}
+.pcard:hover .pcard-name{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
+.pcard-class{font-size:13px;color:var(--ink-soft);margin:7px 0 0;line-height:1.45;}
+.pcard .spec-tags{margin-top:11px;}
+.pcard-sizes{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-fine);
+  display:grid;gap:4px;font-family:var(--mono);font-size:11.5px;color:var(--ink-mute);
+}
+.pcard-sizes span{display:flex;justify-content:space-between;gap:12px;}
+.pcard-sizes span b{font-weight:400;color:var(--ink-soft);}
+.pcard-foot{
+  margin-top:auto;padding-top:16px;display:flex;align-items:flex-end;
+  justify-content:space-between;gap:12px;
+}
+.pcard-price{font-family:var(--mono);font-size:1.22rem;letter-spacing:-.02em;color:var(--ink);line-height:1;}
+.pcard-price small{display:block;font-family:var(--sans);font-size:10px;color:var(--ink-mute);margin-top:4px;letter-spacing:0;}
+.pcard-acts{display:flex;gap:7px;align-items:center;}
+.pcard-view{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 11px;border:1px solid var(--rule);color:var(--ink-soft);text-decoration:none;
+  transition:border-color .15s,color .15s;
+}
+.pcard-view:hover{border-color:var(--ink);color:var(--ink);}
+.pcard-add{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 13px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+  cursor:pointer;transition:background .15s,color .15s;
+}
+.pcard-add:hover{background:transparent;color:var(--ink);}
 </style>
 <div id="siteHeader"></div><div id="app"></div><div id="siteFooter"></div>
 <script>
@@ -770,6 +914,7 @@ const Cart = {
     const hit = items.find(i=>i.sku===sku && i.mg===mg);
     if(hit) hit.qty += qty; else items.push({sku,mg,qty});
     this.write(items);
+    if(typeof Drawer !== 'undefined' && Drawer.built) Drawer.open();
   },
   setQty(sku,mg,qty){
     let items = this.read();
@@ -790,7 +935,15 @@ const Cart = {
   subtotal(){ return this.detailed().reduce((n,i)=>n+i.line,0); },
   shipping(){ const s=this.subtotal(); return s===0||s>=SVL.freeShipOver ? 0 : SVL.shipFlat; },
   total(){ return this.subtotal() + this.shipping(); },
-  paint(){ $$('[data-cart-count]').forEach(el=>{ el.textContent = this.count(); }); }
+  paint(){
+    const n = this.count();
+    $$('[data-cart-count]').forEach(el=>{
+      el.textContent = n;
+      if(el.classList.contains('badge')) el.hidden = (n === 0);
+    });
+    const fab = document.getElementById('cartFab');
+    if(fab) fab.setAttribute('aria-label', n ? `Open cart, ${n} item${n>1?'s':''}` : 'Open cart');
+  }
 };
 
 /* ---------- shell ---------- */
@@ -819,7 +972,6 @@ function renderShell(active){
       <button class="navtoggle2" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
       <div class="navbar-links" id="navLinks">
         ${nav.map(([h,l])=>`<a href="${h}"${h===active?' aria-current="page"':''}>${l}</a>`).join('')}
-        <a class="navcart" href="#/cart">Cart (<span data-cart-count>0</span>)</a>
       </div>
     </div>
   </nav>`;
@@ -875,6 +1027,7 @@ function renderShell(active){
     const n = $('#navLinks'), open = n.classList.toggle('open');
     tog.setAttribute('aria-expanded', String(open));
   });
+  Drawer.build();
   Cart.paint();
   Gate.mount();
 }
@@ -957,6 +1110,158 @@ const Gate = {
   }
 };
 
+/* ---------- cart drawer ----------------------------------------------
+   Floating button, top right, always visible. Click slides a panel in
+   from the right with quantity controls, recommendations and checkout. */
+const Drawer = {
+  built:false,
+
+  /* compounds worth suggesting: same research area as what is already in
+     the cart, singles before blends, cheapest first. */
+  recommended(n=3){
+    const inCart = new Set(Cart.read().map(i=>i.sku));
+    const cats   = new Set(Cart.detailed().map(i=>i.product.cat));
+    return PRODUCTS
+      .filter(p => !inCart.has(p.sku))
+      .map(p => ({p, s:(cats.has(p.cat)?2:0) + (p.blend?0:1)}))
+      .sort((a,b) => b.s - a.s || lowest(a.p) - lowest(b.p))
+      .slice(0, n)
+      .map(x => x.p);
+  },
+
+  build(){
+    if(this.built) return;
+    this.built = true;
+
+    const fab = document.createElement('button');
+    fab.className = 'cartfab';
+    fab.id = 'cartFab';
+    fab.setAttribute('aria-label','Open cart');
+    fab.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.5 3h2.2l2.2 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L20.5 7H6"/>
+        <circle cx="9.5" cy="20" r="1.4"/><circle cx="17.5" cy="20" r="1.4"/>
+      </svg>
+      <span class="badge" data-cart-count hidden>0</span>`;
+
+    const scrim = document.createElement('div');
+    scrim.className = 'cartscrim';
+    scrim.id = 'cartScrim';
+
+    const panel = document.createElement('aside');
+    panel.className = 'cartdrawer';
+    panel.id = 'cartDrawer';
+    panel.setAttribute('role','dialog');
+    panel.setAttribute('aria-modal','true');
+    panel.setAttribute('aria-label','Cart');
+    panel.innerHTML = `
+      <div class="cd-head">
+        <span class="cd-title">Cart</span>
+        <button class="cd-close" id="cdClose" aria-label="Close cart">&times;</button>
+      </div>
+      <div class="cd-body" id="cdBody"></div>
+      <div class="cd-foot" id="cdFoot"></div>`;
+
+    document.body.append(fab, scrim, panel);
+
+    fab.addEventListener('click', ()=>this.open());
+    scrim.addEventListener('click', ()=>this.close());
+    panel.querySelector('#cdClose').addEventListener('click', ()=>this.close());
+
+    document.addEventListener('keydown', e=>{
+      if(e.key === 'Escape' && panel.classList.contains('open')) this.close();
+    });
+
+    // quantity, remove and quick-add all live inside the panel
+    panel.addEventListener('click', e=>{
+      const b = e.target.closest('button'); if(!b) return;
+      const {sku, mg, d} = b.dataset;
+      if(b.classList.contains('cd-add')) return Cart.add(sku, +mg, 1);
+      if(b.classList.contains('cd-rm'))  return Cart.remove(sku, +mg);
+      if(d){
+        const cur = Cart.read().find(i=>i.sku===sku && i.mg===+mg);
+        Cart.setQty(sku, +mg, (cur ? cur.qty : 0) + (+d));
+      }
+    });
+
+    this.render();
+  },
+
+  render(){
+    const body = document.getElementById('cdBody');
+    const foot = document.getElementById('cdFoot');
+    if(!body || !foot) return;
+
+    const items = Cart.detailed();
+
+    const lines = items.length ? items.map(i=>`
+      <div class="cd-line">
+        <a class="nm" href="#/product/${i.sku}">${i.product.name}</a>
+        <div class="mg">${i.size.label || i.mg + ' mg'} &middot; ${money(i.size.price)} each</div>
+        <div class="cd-row">
+          <span class="cd-qty">
+            <button data-sku="${i.sku}" data-mg="${i.mg}" data-d="-1" aria-label="One fewer ${i.product.name}">&minus;</button>
+            <span class="n">${i.qty}</span>
+            <button data-sku="${i.sku}" data-mg="${i.mg}" data-d="1" aria-label="One more ${i.product.name}">+</button>
+          </span>
+          <span class="amt">${money(i.line)}</span>
+        </div>
+        <button class="cd-rm" data-sku="${i.sku}" data-mg="${i.mg}">Remove</button>
+      </div>`).join('')
+      : `<p class="cd-empty">Nothing in the cart yet.</p>`;
+
+    const recs = this.recommended(3);
+    const recBlock = recs.length ? `
+      <div class="cd-recs">
+        <div class="lbl">${items.length ? 'Often studied alongside' : 'Start here'}</div>
+        ${recs.map(p=>`
+          <div class="cd-rec">
+            <span class="t">
+              <a href="#/product/${p.sku}">${p.name}</a>
+              <span class="p">${p.sizes[0].label || p.sizes[0].mg + ' mg'} &middot; ${money(lowest(p))}</span>
+            </span>
+            <button class="cd-add" data-sku="${p.sku}" data-mg="${p.sizes[0].mg}">Add</button>
+          </div>`).join('')}
+      </div>` : '';
+
+    body.innerHTML = lines + recBlock;
+
+    const sub = Cart.subtotal();
+    const gap = SVL.freeShipOver - sub;
+    foot.innerHTML = `
+      <div class="cd-sub"><span class="k">Subtotal</span><span class="v">${money(sub)}</span></div>
+      <div class="cd-ship">${
+        items.length === 0 ? 'Shipping calculated at checkout'
+        : gap > 0 ? money(gap) + ' more for free shipping'
+        : 'Shipping is free on this order'}</div>
+      <a class="cd-checkout" href="#/cart"${items.length ? '' : ' aria-disabled="true" tabindex="-1"'}>Checkout</a>`;
+  },
+
+  open(){
+    const p = document.getElementById('cartDrawer');
+    const s = document.getElementById('cartScrim');
+    if(!p) return;
+    this.render();
+    p.classList.add('open');
+    s.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(()=>{ const c = document.getElementById('cdClose'); if(c) c.focus(); }, 60);
+  },
+
+  close(){
+    const p = document.getElementById('cartDrawer');
+    const s = document.getElementById('cartScrim');
+    if(!p) return;
+    p.classList.remove('open');
+    s.classList.remove('open');
+    document.body.style.overflow = '';
+    const f = document.getElementById('cartFab'); if(f) f.focus();
+  }
+};
+
+document.addEventListener('cart:change', ()=>Drawer.render());
+
 /* ---------- specimen register row ---------- */
 function specRow(p){
   const sizes = p.sizes.map(s=>`<span class="row"><span class="mg">${s.label || s.mg+' mg'}</span><span>${money(s.price)}</span></span>`).join('');
@@ -976,6 +1281,34 @@ function specRow(p){
     </div>
   </article>`;
 }
+
+/* ---------- product grid card ---------- */
+function gridCard(p){
+  const sizes = p.sizes.map(s=>
+    `<span><b>${s.label || s.mg + ' mg'}</b>${money(s.price)}</span>`).join('');
+  const tags = p.tags.map(t=>`<span class="tag${p.blend?' tag-blend':''}">${t}</span>`).join('');
+  return `
+  <article class="pcard" data-cat="${p.cat}" data-blend="${p.blend}">
+    <div class="pcard-sku">SV-${p.sku}</div>
+    <a class="pcard-name" href="#/product/${p.sku}">${p.name}</a>
+    <p class="pcard-class">${p.klass}</p>
+    <div class="spec-tags">${tags}</div>
+    <div class="pcard-sizes">${sizes}</div>
+    <div class="pcard-foot">
+      <span class="pcard-price">${money(lowest(p))}${p.sizes.length>1?'<small>from</small>':''}</span>
+      <span class="pcard-acts">
+        <a class="pcard-view" href="#/product/${p.sku}">View</a>
+        <button class="pcard-add" data-sku="${p.sku}" data-mg="${p.sizes[0].mg}">Add</button>
+      </span>
+    </div>
+  </article>`;
+}
+
+/* quick-add works anywhere a grid card is rendered */
+document.addEventListener('click', e=>{
+  const b = e.target.closest('.pcard-add');
+  if(b) Cart.add(b.dataset.sku, +b.dataset.mg, 1);
+});
 
 /* ---------- chromatogram (hero) ---------- */
 function drawChromatogram(host, opts={}){
@@ -1373,8 +1706,8 @@ function initProduct(){
 
   <section class="sec" style="border-top:1px solid var(--rule)">
     <div class="sec-head"><h2>Also in ${CATEGORIES.find(c=>c.id===p.cat).label.toLowerCase()}</h2></div>
-    <div class="register">
-      ${PRODUCTS.filter(x=>x.cat===p.cat && x.sku!==p.sku).slice(0,4).map(specRow).join('') || '<p style="padding:20px 0;color:var(--ink-mute)">Nothing else in this class yet.</p>'}
+    <div class="pgrid">
+      ${PRODUCTS.filter(x=>x.cat===p.cat && x.sku!==p.sku).slice(0,4).map(gridCard).join('') || '<p style="padding:20px 0;color:var(--ink-mute)">Nothing else in this class yet.</p>'}
     </div>
   </section>`;
 
@@ -1433,7 +1766,7 @@ function initProduct(){
 
 const VIEWS = {
   index: '<main>\n\n  <!-- featured note -->\n  <section class="sec" style="border-bottom:0;padding-bottom:clamp(34px,4.5vw,56px)">\n    <div class="shell">\n      <article class="feature" id="featured"></article>\n    </div>\n  </section>\n\n  <!-- recent notes -->\n  <section class="sec" style="border-bottom:0">\n    <div class="shell">\n      <div class="slabel">Recent notes</div>\n      <div class="notegrid" id="noteGrid"></div>\n    </div>\n  </section>\n\n  <!-- about -->\n  <section class="sec" id="about" style="border-bottom:0;background:var(--paper-deep)">\n    <div class="shell">\n      <div class="slabel">About</div>\n      <div class="aboutwrap">\n        <h2>Why &ldquo;SempreViva&rdquo;</h2>\n        <p>&ldquo;Sempre viva&rdquo; means &ldquo;always alive.&rdquo; This is a research supply company focused on the long game. This space is where we write about new innovations in peptide technology and the analytical side of that work: how testing is done, what the resulting documentation means, and why the details are worth caring about.</p>\n        <p>All products are tested for purity, mass measurements, and blend ratios here in the United States.</p>\n        <p style="margin-top:34px">\n          <a class="shopcta" href="#/shop">Shop research compounds</a>\n        </p>\n      </div>\n    </div>\n  </section>\n\n</main>',
-  shop: '<main>\n  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">Compound register</h1>\n        <p>Listed by structural class rather than by use. Sequence is shown where a defined one exists; blends are marked, and each carries a ratio verification in addition to the purity assay.</p>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec" style="padding-top:clamp(28px,3vw,40px)">\n    <div class="shell">\n      <div class="filters" id="filters"></div>\n      <div class="register" id="register"></div>\n      <p id="empty" class="hide" style="padding:40px 0;color:var(--ink-mute)">Nothing in the register matches that filter.</p>\n    </div>\n  </section>\n\n  <section class="sec" id="blends" style="border-bottom:0">\n    <div class="shell dual">\n      <div>\n        <div class="sec-head">\n          <h2>On blends</h2>\n          <p>A blend is not a discount bundle. It is several compounds co-lyophilised in one vial, which means the proportion has to be measured rather than assumed.</p>\n        </div>\n        <a class="btn btn-ghost" href="#/testing">How ratio verification works</a>\n      </div>\n      <div>\n        <div class="register" id="blendList"></div>\n      </div>\n    </div>\n  </section>\n</main>',
+  shop: '<main>\n  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">Compound register</h1>\n        <p>Listed by structural class rather than by use. Sequence is shown where a defined one exists; blends are marked, and each carries a ratio verification in addition to the purity assay.</p>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec" style="padding-top:clamp(28px,3vw,40px)">\n    <div class="shell">\n      <div class="filters" id="filters"></div>\n      <div class="pgrid" id="register"></div>\n      <p id="empty" class="hide" style="padding:40px 0;color:var(--ink-mute)">Nothing in the register matches that filter.</p>\n    </div>\n  </section>\n\n  <section class="sec" id="blends" style="border-bottom:0">\n    <div class="shell dual">\n      <div>\n        <div class="sec-head">\n          <h2>On blends</h2>\n          <p>A blend is not a discount bundle. It is several compounds co-lyophilised in one vial, which means the proportion has to be measured rather than assumed.</p>\n        </div>\n        <a class="btn btn-ghost" href="#/testing">How ratio verification works</a>\n      </div>\n      <div>\n        <div class="pgrid" id="blendList"></div>\n      </div>\n    </div>\n  </section>\n</main>',
   product: '<main class="shell" id="pd"></main>',
   matcher: '<main class="shell">\n  <div class="matcher">\n    <div class="mprog" id="prog" aria-hidden="true"></div>\n    <div id="stage"></div>\n  </div>\n</main>',
   testing: '<main>\n\n  <section class="sec sec-tight" style="border-bottom:0;padding-bottom:0">\n    <div class="shell">\n      <div class="sec-head">\n        <h1 style="font-size:clamp(2.3rem,4.6vw,3.6rem)">What we test, and what the numbers mean</h1>\n        <p>All products are tested for purity, mass measurements, and blend ratios here in the United States. This page explains what each of those tests actually establishes — and what it does not.</p>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec">\n    <div class="shell dual">\n      <div class="rail">\n        <dl>\n          <dt>Identity</dt><dd>ESI-MS</dd>\n          <dt>Purity</dt><dd>RP-HPLC, 214 nm</dd>\n          <dt>Net peptide</dt><dd>Nitrogen determination</dd>\n          <dt>Water</dt><dd>Karl Fischer</dd>\n          <dt>Blend ratio</dt><dd>RP-HPLC, per component</dd>\n          <dt>Appearance</dt><dd>Visual</dd>\n          <dt>Location</dt><dd>United States</dd>\n        </dl>\n      </div>\n      <div class="stack" style="--sp:36px">\n        <div id="identity">\n          <h2 style="margin-bottom:12px">Identity comes first</h2>\n          <p>Mass spectrometry ionises the sample and measures mass-to-charge ratio. The observed mass either matches the expected mass for the sequence or it does not. This is the test that answers "is this the molecule on the label."</p>\n          <p>It gets skipped more often than it should, because purity is the number people look for. But purity is a ratio of one peak to all peaks — it describes how dominant the main species is, not what that species is. A sample can be 99% one compound and that compound can be the wrong one.</p>\n        </div>\n\n        <div id="purity">\n          <h2 style="margin-bottom:12px">Purity is a method, not a number</h2>\n          <p>Reversed-phase HPLC pushes the sample through a packed column under pressure. Components that interact more strongly with the stationary phase come out later. A detector at the far end records absorbance, and each species draws a peak.</p>\n          <p>Area percent is the area under the main peak divided by the total area under all peaks. Change the wavelength, the gradient, or the column and the same vial gives a different figure — which is why we publish the method and the detection wavelength next to the percentage. A purity number with no method attached cannot be compared to anything.</p>\n          <p>There is a second trap. Area percent, net peptide content, and total weight purity are three different measurements that all get printed as a percentage. A vial can read 99% by HPLC and still be a substantial fraction salt and residual water by mass, because HPLC only sees what absorbs at that wavelength. Net peptide content is the figure that tells you how much peptide you actually bought.</p>\n        </div>\n\n        <div id="ratio">\n          <h2 style="margin-bottom:12px">Blends need a fourth test</h2>\n          <p>When three compounds share a vial, purity tells you how clean the contents are and identity tells you the components are the right ones. Neither tells you the proportion.</p>\n          <p>Fill weight is not proof of ratio. Two powders can be weighed correctly and still separate, settle, or partition unevenly during lyophilisation. Ratio verification runs the reconstituted blend through HPLC and integrates each component peak separately, so the stated split is measured rather than assumed.</p>\n          <p>Every blend in the register — Wolverine, Deadpool, Glow, and Klow — carries one.</p>\n        </div>\n\n        <div id="handling">\n          <h2 style="margin-bottom:12px">Lyophilisation, and the clock it stops</h2>\n          <p>Freeze-drying removes water by sublimation: the sample is frozen, then held under vacuum so ice passes straight to vapour without melting. Skipping the liquid phase is the point — liquid water drives hydrolysis, and hydrolysis is what breaks peptide bonds.</p>\n          <p>The result is a dry cake that is stable at room temperature in transit and keeps far longer frozen. Adding diluent restarts the clock the dry state had stopped. After that: 2–8&nbsp;°C, out of the light, and as few freeze–thaw cycles as the work allows.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <section class="sec" id="coa">\n    <div class="shell">\n      <div class="sec-head">\n        <h2>COA lookup</h2>\n        <p>Every vial carries a lot number on the label. Enter it to pull the certificate of analysis for that specific lot — not a representative document for the product line.</p>\n      </div>\n      <form id="coaForm" style="display:flex;gap:12px;flex-wrap:wrap;max-width:560px">\n        <input id="coaLot" type="text" placeholder="Lot number, e.g. SV-BPC-0000" aria-label="Lot number"\n               style="flex:1;min-width:240px;font-family:var(--mono);font-size:14px;padding:13px 14px;border:1px solid var(--rule);background:var(--glass);border-radius:1px">\n        <button class="btn" type="submit">Look up</button>\n      </form>\n      <div id="coaOut" style="margin-top:22px;max-width:640px"></div>\n    </div>\n  </section>\n\n</main>',
@@ -1481,7 +1814,7 @@ const INITS = {
   function paint(){
     const list = PRODUCTS.filter(p =>
       active==='all' ? true : active==='blend' ? p.blend : p.cat===active);
-    reg.innerHTML = list.map(specRow).join('');
+    reg.innerHTML = list.map(gridCard).join('');
     empty.classList.toggle('hide', list.length>0);
     document.getElementById('count').textContent = list.length + ' of ' + PRODUCTS.length;
   }
@@ -1495,7 +1828,7 @@ const INITS = {
   paint();
 
   document.getElementById('blendList').innerHTML =
-    PRODUCTS.filter(p=>p.blend).map(specRow).join('');
+    PRODUCTS.filter(p=>p.blend).map(gridCard).join('');
 
   },
   product: function(){ initProduct(); },

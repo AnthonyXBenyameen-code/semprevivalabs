@@ -32,6 +32,7 @@ const Cart = {
     const hit = items.find(i=>i.sku===sku && i.mg===mg);
     if(hit) hit.qty += qty; else items.push({sku,mg,qty});
     this.write(items);
+    if(typeof Drawer !== 'undefined' && Drawer.built) Drawer.open();
   },
   setQty(sku,mg,qty){
     let items = this.read();
@@ -52,7 +53,15 @@ const Cart = {
   subtotal(){ return this.detailed().reduce((n,i)=>n+i.line,0); },
   shipping(){ const s=this.subtotal(); return s===0||s>=SVL.freeShipOver ? 0 : SVL.shipFlat; },
   total(){ return this.subtotal() + this.shipping(); },
-  paint(){ $$('[data-cart-count]').forEach(el=>{ el.textContent = this.count(); }); }
+  paint(){
+    const n = this.count();
+    $$('[data-cart-count]').forEach(el=>{
+      el.textContent = n;
+      if(el.classList.contains('badge')) el.hidden = (n === 0);
+    });
+    const fab = document.getElementById('cartFab');
+    if(fab) fab.setAttribute('aria-label', n ? `Open cart, ${n} item${n>1?'s':''}` : 'Open cart');
+  }
 };
 
 /* ---------- shell ---------- */
@@ -81,7 +90,6 @@ function renderShell(active){
       <button class="navtoggle2" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
       <div class="navbar-links" id="navLinks">
         ${nav.map(([h,l])=>`<a href="${h}"${h===active?' aria-current="page"':''}>${l}</a>`).join('')}
-        <a class="navcart" href="cart.html">Cart (<span data-cart-count>0</span>)</a>
       </div>
     </div>
   </nav>`;
@@ -137,6 +145,7 @@ function renderShell(active){
     const n = $('#navLinks'), open = n.classList.toggle('open');
     tog.setAttribute('aria-expanded', String(open));
   });
+  Drawer.build();
   Cart.paint();
   Gate.mount();
 }
@@ -219,6 +228,158 @@ const Gate = {
   }
 };
 
+/* ---------- cart drawer ----------------------------------------------
+   Floating button, top right, always visible. Click slides a panel in
+   from the right with quantity controls, recommendations and checkout. */
+const Drawer = {
+  built:false,
+
+  /* compounds worth suggesting: same research area as what is already in
+     the cart, singles before blends, cheapest first. */
+  recommended(n=3){
+    const inCart = new Set(Cart.read().map(i=>i.sku));
+    const cats   = new Set(Cart.detailed().map(i=>i.product.cat));
+    return PRODUCTS
+      .filter(p => !inCart.has(p.sku))
+      .map(p => ({p, s:(cats.has(p.cat)?2:0) + (p.blend?0:1)}))
+      .sort((a,b) => b.s - a.s || lowest(a.p) - lowest(b.p))
+      .slice(0, n)
+      .map(x => x.p);
+  },
+
+  build(){
+    if(this.built) return;
+    this.built = true;
+
+    const fab = document.createElement('button');
+    fab.className = 'cartfab';
+    fab.id = 'cartFab';
+    fab.setAttribute('aria-label','Open cart');
+    fab.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.5 3h2.2l2.2 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L20.5 7H6"/>
+        <circle cx="9.5" cy="20" r="1.4"/><circle cx="17.5" cy="20" r="1.4"/>
+      </svg>
+      <span class="badge" data-cart-count hidden>0</span>`;
+
+    const scrim = document.createElement('div');
+    scrim.className = 'cartscrim';
+    scrim.id = 'cartScrim';
+
+    const panel = document.createElement('aside');
+    panel.className = 'cartdrawer';
+    panel.id = 'cartDrawer';
+    panel.setAttribute('role','dialog');
+    panel.setAttribute('aria-modal','true');
+    panel.setAttribute('aria-label','Cart');
+    panel.innerHTML = `
+      <div class="cd-head">
+        <span class="cd-title">Cart</span>
+        <button class="cd-close" id="cdClose" aria-label="Close cart">&times;</button>
+      </div>
+      <div class="cd-body" id="cdBody"></div>
+      <div class="cd-foot" id="cdFoot"></div>`;
+
+    document.body.append(fab, scrim, panel);
+
+    fab.addEventListener('click', ()=>this.open());
+    scrim.addEventListener('click', ()=>this.close());
+    panel.querySelector('#cdClose').addEventListener('click', ()=>this.close());
+
+    document.addEventListener('keydown', e=>{
+      if(e.key === 'Escape' && panel.classList.contains('open')) this.close();
+    });
+
+    // quantity, remove and quick-add all live inside the panel
+    panel.addEventListener('click', e=>{
+      const b = e.target.closest('button'); if(!b) return;
+      const {sku, mg, d} = b.dataset;
+      if(b.classList.contains('cd-add')) return Cart.add(sku, +mg, 1);
+      if(b.classList.contains('cd-rm'))  return Cart.remove(sku, +mg);
+      if(d){
+        const cur = Cart.read().find(i=>i.sku===sku && i.mg===+mg);
+        Cart.setQty(sku, +mg, (cur ? cur.qty : 0) + (+d));
+      }
+    });
+
+    this.render();
+  },
+
+  render(){
+    const body = document.getElementById('cdBody');
+    const foot = document.getElementById('cdFoot');
+    if(!body || !foot) return;
+
+    const items = Cart.detailed();
+
+    const lines = items.length ? items.map(i=>`
+      <div class="cd-line">
+        <a class="nm" href="product.html?sku=${i.sku}">${i.product.name}</a>
+        <div class="mg">${i.size.label || i.mg + ' mg'} &middot; ${money(i.size.price)} each</div>
+        <div class="cd-row">
+          <span class="cd-qty">
+            <button data-sku="${i.sku}" data-mg="${i.mg}" data-d="-1" aria-label="One fewer ${i.product.name}">&minus;</button>
+            <span class="n">${i.qty}</span>
+            <button data-sku="${i.sku}" data-mg="${i.mg}" data-d="1" aria-label="One more ${i.product.name}">+</button>
+          </span>
+          <span class="amt">${money(i.line)}</span>
+        </div>
+        <button class="cd-rm" data-sku="${i.sku}" data-mg="${i.mg}">Remove</button>
+      </div>`).join('')
+      : `<p class="cd-empty">Nothing in the cart yet.</p>`;
+
+    const recs = this.recommended(3);
+    const recBlock = recs.length ? `
+      <div class="cd-recs">
+        <div class="lbl">${items.length ? 'Often studied alongside' : 'Start here'}</div>
+        ${recs.map(p=>`
+          <div class="cd-rec">
+            <span class="t">
+              <a href="product.html?sku=${p.sku}">${p.name}</a>
+              <span class="p">${p.sizes[0].label || p.sizes[0].mg + ' mg'} &middot; ${money(lowest(p))}</span>
+            </span>
+            <button class="cd-add" data-sku="${p.sku}" data-mg="${p.sizes[0].mg}">Add</button>
+          </div>`).join('')}
+      </div>` : '';
+
+    body.innerHTML = lines + recBlock;
+
+    const sub = Cart.subtotal();
+    const gap = SVL.freeShipOver - sub;
+    foot.innerHTML = `
+      <div class="cd-sub"><span class="k">Subtotal</span><span class="v">${money(sub)}</span></div>
+      <div class="cd-ship">${
+        items.length === 0 ? 'Shipping calculated at checkout'
+        : gap > 0 ? money(gap) + ' more for free shipping'
+        : 'Shipping is free on this order'}</div>
+      <a class="cd-checkout" href="cart.html"${items.length ? '' : ' aria-disabled="true" tabindex="-1"'}>Checkout</a>`;
+  },
+
+  open(){
+    const p = document.getElementById('cartDrawer');
+    const s = document.getElementById('cartScrim');
+    if(!p) return;
+    this.render();
+    p.classList.add('open');
+    s.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(()=>{ const c = document.getElementById('cdClose'); if(c) c.focus(); }, 60);
+  },
+
+  close(){
+    const p = document.getElementById('cartDrawer');
+    const s = document.getElementById('cartScrim');
+    if(!p) return;
+    p.classList.remove('open');
+    s.classList.remove('open');
+    document.body.style.overflow = '';
+    const f = document.getElementById('cartFab'); if(f) f.focus();
+  }
+};
+
+document.addEventListener('cart:change', ()=>Drawer.render());
+
 /* ---------- specimen register row ---------- */
 function specRow(p){
   const sizes = p.sizes.map(s=>`<span class="row"><span class="mg">${s.label || s.mg+' mg'}</span><span>${money(s.price)}</span></span>`).join('');
@@ -238,6 +399,34 @@ function specRow(p){
     </div>
   </article>`;
 }
+
+/* ---------- product grid card ---------- */
+function gridCard(p){
+  const sizes = p.sizes.map(s=>
+    `<span><b>${s.label || s.mg + ' mg'}</b>${money(s.price)}</span>`).join('');
+  const tags = p.tags.map(t=>`<span class="tag${p.blend?' tag-blend':''}">${t}</span>`).join('');
+  return `
+  <article class="pcard" data-cat="${p.cat}" data-blend="${p.blend}">
+    <div class="pcard-sku">SV-${p.sku}</div>
+    <a class="pcard-name" href="product.html?sku=${p.sku}">${p.name}</a>
+    <p class="pcard-class">${p.klass}</p>
+    <div class="spec-tags">${tags}</div>
+    <div class="pcard-sizes">${sizes}</div>
+    <div class="pcard-foot">
+      <span class="pcard-price">${money(lowest(p))}${p.sizes.length>1?'<small>from</small>':''}</span>
+      <span class="pcard-acts">
+        <a class="pcard-view" href="product.html?sku=${p.sku}">View</a>
+        <button class="pcard-add" data-sku="${p.sku}" data-mg="${p.sizes[0].mg}">Add</button>
+      </span>
+    </div>
+  </article>`;
+}
+
+/* quick-add works anywhere a grid card is rendered */
+document.addEventListener('click', e=>{
+  const b = e.target.closest('.pcard-add');
+  if(b) Cart.add(b.dataset.sku, +b.dataset.mg, 1);
+});
 
 /* ---------- chromatogram (hero) ---------- */
 function drawChromatogram(host, opts={}){

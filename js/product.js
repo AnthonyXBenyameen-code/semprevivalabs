@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   <section class="sec" style="border-top:1px solid var(--rule)">
     <div class="sec-head"><h2>Also in ${CATEGORIES.find(c=>c.id===p.cat).label.toLowerCase()}</h2></div>
-    <div class="register">
-      ${PRODUCTS.filter(x=>x.cat===p.cat && x.sku!==p.sku).slice(0,4).map(specRow).join('') || '<p style="padding:20px 0;color:var(--ink-mute)">Nothing else in this class yet.</p>'}
+    <div class="pgrid">
+      ${PRODUCTS.filter(x=>x.cat===p.cat && x.sku!==p.sku).slice(0,4).map(gridCard).join('') || '<p style="padding:20px 0;color:var(--ink-mute)">Nothing else in this class yet.</p>'}
     </div>
   </section>`;
 

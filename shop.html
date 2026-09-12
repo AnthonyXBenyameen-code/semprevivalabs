@@ -25,7 +25,7 @@
   <section class="sec" style="padding-top:clamp(28px,3vw,40px)">
     <div class="shell">
       <div class="filters" id="filters"></div>
-      <div class="register" id="register"></div>
+      <div class="pgrid" id="register"></div>
       <p id="empty" class="hide" style="padding:40px 0;color:var(--ink-mute)">Nothing in the register matches that filter.</p>
     </div>
   </section>
@@ -40,7 +40,7 @@
         <a class="btn btn-ghost" href="testing.html#ratio">How ratio verification works</a>
       </div>
       <div>
-        <div class="register" id="blendList"></div>
+        <div class="pgrid" id="blendList"></div>
       </div>
     </div>
   </section>
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function paint(){
     const list = PRODUCTS.filter(p =>
       active==='all' ? true : active==='blend' ? p.blend : p.cat===active);
-    reg.innerHTML = list.map(specRow).join('');
+    reg.innerHTML = list.map(gridCard).join('');
     empty.classList.toggle('hide', list.length>0);
     document.getElementById('count').textContent = list.length + ' of ' + PRODUCTS.length;
   }
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   paint();
 
   document.getElementById('blendList').innerHTML =
-    PRODUCTS.filter(p=>p.blend).map(specRow).join('');
+    PRODUCTS.filter(p=>p.blend).map(gridCard).join('');
 });
 </script>
 </body>
